@@ -1,0 +1,15 @@
+-- Create a secure function to delete notifications
+-- This helps avoid RLS issues where users might not have direct DELETE permission on the table
+-
+-create or replace function delete_notification(p_notification_id bigint)
+-returns void
+-language plpgsql
+-security definer
+-as $$
+-begin
+-  delete from notifications
+-  where id = p_notification_id
+-  and user_id = auth.uid(); -- Ensure users can only delete their own notifications
+-end;
+-$$;
+-

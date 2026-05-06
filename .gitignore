@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+.npm/
+
+# Build outputs
+dist/
+build/
+coverage/
+
+# Environment
+.env
+.env.local
+.env.*.local
+!.env.example
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# Supabase local
+.supabase/
+supabase/.branches/
+supabase/.temp/
+
+# Capacitor / native generated outputs
+web/dist/
+web/android/app/src/main/assets/public/
+web/ios/App/App/public/
+web/ios/App/Pods/
+web/ios/DerivedData/
+web/ios/build/

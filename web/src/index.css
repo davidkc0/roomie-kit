@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Core Brand */
+  --primary: #7B2FFF;
+  --secondary: #00C9FF;
+  --accent: #FF2E9F;
+
+  /* Backgrounds */
+  --bg-base: #13141C;
+  --bg-surface: #1C1D27;
+  --bg-elevated: #252631;
+  --border: #363742;
+  --border-subtle: #2A2B36;
+
+  /* Text */
+  --text-primary: #FFFFFF;
+  --text-secondary: #B8B8C8;
+  --text-tertiary: #78788C;
+  --text-disabled: #4E4E5C;
+
+  /* Functional */
+  --success: #00FF9C;
+  --warning: #FFB800;
+  --error: #FF3D5C;
+  --info: #00A8E8;
+
+  /* Status */
+  --status-online: #00FF9C;
+  --status-away: #FFB800;
+  --status-busy: #FF3D5C;
+  --status-offline: #4E4E5C;
+
+  /* Gradients */
+  --gradient-icon: linear-gradient(135deg, #7B2FFF 0%, #00C9FF 100%);
+  --gradient-header: linear-gradient(180deg, #7B2FFF 0%, #00C9FF 100%);
+  --gradient-card: linear-gradient(135deg, rgba(123, 47, 255, 0.1) 0%, rgba(0, 201, 255, 0.1) 100%);
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-base);
+  /* Ensure bg color behind safe areas (notch/home bar) */
+  color: #f1f5f9;
+  overscroll-behavior-y: none;
+  /* Prevent rubber-banding revealing white/other bg */
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* Re-enable text selection for inputs and textareas */
+input,
+textarea,
+[contenteditable="true"] {
+  -webkit-user-select: text;
+  user-select: text;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slideInRight 0.3s ease-out forwards;
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(100%);
+  }
+}
+
+.animate-slide-out-right {
+  animation: slideOutRight 0.3s ease-in forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out forwards;
+}
+
+@keyframes slowBounce {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-slow-bounce {
+  animation: slowBounce 2s ease-in-out infinite;
+}
+
+/* iOS-like momentum scrolling */
+.ios-scroll {
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: contain;
+}
+
+/* Hide scrollbar (all browsers) */
+.hide-scrollbar {
+  scrollbar-width: none;
+  /* Firefox */
+  -ms-overflow-style: none;
+  /* IE/Edge */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+  /* Chrome/Safari/Opera */
+}
+
+/* Safe area padding - applies proper padding for notches/dynamic island/home bar */
+.safe-area-padding {
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* iOS safe area fallback - provides minimum padding when env() returns 0 */
+@supports (padding-top: env(safe-area-inset-top)) {
+  .safe-area-padding {
+    padding-top: max(env(safe-area-inset-top), 0px);
+    padding-bottom: max(env(safe-area-inset-bottom), 0px);
+    padding-left: max(env(safe-area-inset-left), 0px);
+    padding-right: max(env(safe-area-inset-right), 0px);
+  }
+}
