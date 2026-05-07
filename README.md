@@ -1,20 +1,96 @@
-# Roomie Starter
+<p align="center">
+  <img src="web/public/assets/roomie_kit_logo.png" alt="Roomie Kit" width="420" />
+</p>
 
-Roomie is an open-source starter for avatar-based virtual rooms with realtime presence, Supabase auth/data, Babylon.js rooms, Capacitor mobile shells, and Agora-backed voice/video/streaming.
+<!-- Keep these links. Translations will automatically update with the README. -->
+<p align="center">
+  <a href="https://zdoc.app/de/davidkc0/roomie-kit">Deutsch</a> |
+  <a href="https://zdoc.app/en/davidkc0/roomie-kit">English</a> |
+  <a href="https://zdoc.app/es/davidkc0/roomie-kit">Español</a> |
+  <a href="https://zdoc.app/fr/davidkc0/roomie-kit">français</a> |
+  <a href="https://zdoc.app/ja/davidkc0/roomie-kit">日本語</a> |
+  <a href="https://zdoc.app/ko/davidkc0/roomie-kit">한국어</a> |
+  <a href="https://zdoc.app/pt/davidkc0/roomie-kit">Português</a> |
+  <a href="https://zdoc.app/ru/davidkc0/roomie-kit">Русский</a> |
+  <a href="https://zdoc.app/zh/davidkc0/roomie-kit">中文</a>
+</p>
 
-The starter intentionally ships only the app, backend, and mobile wrappers. The copied marketing site and upstream AvatarCreator package are not part of this repo.
+# Roomie Kit
+
+Roomie Kit is an MIT-licensed starter for building social virtual spaces, live rooms, avatar chat, and realtime video experiences. It ships a Vite/React app, Supabase backend, Agora media layer, Babylon.js virtual rooms, Capacitor mobile wrappers, and a local starter asset bundle.
+
+Use it as a full virtual-room app, or lift out the media layer and use Roomie as a livestreaming/video-chat foundation without the 3D spaces.
+
+## What You Can Build
+
+- Avatar-based virtual rooms with realtime presence, movement, room furniture, profiles, and games.
+- Voice rooms, TV-head avatar video, personal-room group video, direct 1:1 calls, and theater livestreams.
+- A standalone livestreaming or video-chat app using the same `MediaProvider` layer, Supabase auth, and Agora token function.
+- iOS and Android apps through Capacitor.
+- Optional product systems such as waitlist, invites, economy, gifts, daily rewards, push, and payments.
+
+## Tech Stack
+
+- [React](https://react.dev/) + [Vite](https://vite.dev/guide/)
+- [Supabase](https://supabase.com/docs) for auth, Postgres, realtime data, migrations, and Edge Functions
+- [Agora RTC](https://docs.agora.io/en/video-calling/overview/product-overview) for voice, video, and livestream channels
+- [Babylon.js](https://doc.babylonjs.com/) for the 3D rooms
+- [Capacitor](https://capacitorjs.com/docs) for native iOS/Android wrappers
+- [Git LFS](https://git-lfs.com/) for bundled GLB/image/audio/WASM assets
+
+## Repository Layout
+
+```text
+.
+  web/                         Vite React app
+  web/src/media/               Provider-based voice/video/livestream layer
+  web/src/components/streaming Theater and personal-room streaming UI
+  web/src/world/               Babylon.js room and avatar rendering
+  web/public/                  Local starter assets served by Vite
+  supabase/                    Migrations, config, and Edge Functions
+  docs/                        Setup, release, media, mobile, and module docs
+```
 
 ## Quickstart
+
+Clone with Git LFS enabled so the bundled starter assets download correctly:
+
+```bash
+git lfs install
+git clone <your-roomie-kit-repo-url>
+cd roomie-kit
+git lfs pull
+```
+
+Install dependencies:
 
 ```bash
 npm install
 npm --prefix web install
+```
+
+Create environment files:
+
+```bash
 cp web/.env.example web/.env
 cp .env.example .env
+```
+
+Start the app:
+
+```bash
 npm run dev
 ```
 
-For the backend:
+The web app runs at [http://localhost:5173](http://localhost:5173).
+
+## Configure Supabase
+
+Roomie can use either a hosted Supabase project or the local Supabase stack.
+
+For hosted Supabase, create a project in the [Supabase dashboard](https://supabase.com/dashboard), apply the migrations, deploy the Edge Functions you need, and put the project URL and anon key in `web/.env`.
+
+For local Supabase development:
 
 ```bash
 npm run supabase:start
@@ -22,51 +98,196 @@ npm run supabase:reset
 npm run functions:serve
 ```
 
-Fill `web/.env` with your Supabase URL/anon key, Agora App ID, asset host, redirect URLs, and optional module settings. Fill root `.env` with Supabase Edge Function secrets before deploying or serving functions that need server-side credentials.
+Copy the local API URL and anon key from `supabase status` into `web/.env`.
 
-## What Ships
+Useful local URLs:
 
-- `web/`: Vite React app with virtual rooms, auth, profiles, rooms, games, voice/video, and Capacitor config.
-- `supabase/`: database migrations, local config, and Edge Functions.
-- `docs/`: setup notes for Supabase, backend modules, media, mobile, assets, GitHub publishing, and release hygiene.
-- `web/public/`: local starter assets. See `docs/assets.md` for the folder contract.
+- Supabase API: `http://127.0.0.1:54321`
+- Supabase Studio: `http://127.0.0.1:54323`
+- App: `http://localhost:5173`
 
-## Open Source Defaults
+More detail: [docs/supabase.md](docs/supabase.md)
 
-- License: MIT for Roomie-owned code.
-- Media: Agora default, wrapped by the `MediaProvider` surface in `web/src/media`.
-- Auth callbacks: handled inside the app at `/confirm-email` and `/reset-password`.
-- Optional modules: push, payments, waitlist, invite rewards, and cron jobs are feature/config gated.
-- Asset host: defaults to `web/public` via `VITE_ASSET_BASE_URL=/`; switch to an R2/CDN URL when desired.
+## Configure Media
+
+Agora is the default media provider. Create an Agora project, enable App Certificate if you are using token auth, then set:
+
+```bash
+# web/.env
+VITE_AGORA_APP_ID=
+
+# .env, used by Supabase Edge Functions
+AGORA_APP_ID=
+AGORA_APP_CERTIFICATE=
+AGORA_TOKEN_TTL_SECONDS=3600
+```
+
+Deploy the core token function when using a hosted Supabase project:
+
+```bash
+npx supabase functions deploy agora-token
+```
+
+Set Edge Function secrets:
+
+```bash
+npx supabase secrets set --env-file .env
+```
+
+Roomie uses deterministic channel names for room voice, direct calls, personal-room video, and theater livestreaming. See [docs/media.md](docs/media.md).
+
+## Modular Architecture
+
+Roomie Kit is intentionally modular. The virtual room is one consumer of the realtime/media stack, not a hard requirement.
+
+| Module | Paths | Required For |
+| --- | --- | --- |
+| Core app/auth | `web/src/pages`, `web/src/state`, `web/src/lib`, `supabase/migrations` | Login, profiles, rooms, presence |
+| Media provider | `web/src/media`, `supabase/functions/agora-token` | Voice, video chat, livestreaming |
+| Streaming UI | `web/src/components/streaming`, `web/src/components/VideoChatOverlay.tsx` | Theater streams, group video, direct calls |
+| Virtual spaces | `web/src/world`, `web/src/pages/Room.tsx`, `web/public/rooms` | 3D avatar rooms |
+| Avatars/assets | `web/src/avatars`, `web/public/avatars`, `web/public/furniture` | Avatar rooms and local starter content |
+| Mobile wrappers | `web/ios`, `web/android`, `web/capacitor.config.ts` | iOS and Android builds |
+| Optional product systems | waitlist, invites, economy, gifts, push, payments, cron | Product/business features |
+| Games | `web/src/games` | Chess, Snake, Match-3, Hex arena |
+
+The optional product modules are disabled by default through `web/.env` flags:
+
+```bash
+VITE_ENABLE_WAITLIST=false
+VITE_ENABLE_INVITES=false
+VITE_ENABLE_ECONOMY=false
+VITE_ENABLE_GIFTS=false
+VITE_ENABLE_DAILY_REWARDS=false
+VITE_ENABLE_PUSH=false
+VITE_ENABLE_PAYMENTS=false
+```
+
+More detail: [docs/backend-modules.md](docs/backend-modules.md)
+
+## Livestreaming Without Virtual Spaces
+
+You can use Roomie Kit as a livestreaming/video-chat starter without Babylon.js rooms.
+
+Keep:
+
+- `web/src/media`
+- `web/src/components/streaming`
+- `web/src/components/VideoChatOverlay.tsx`
+- `supabase/functions/agora-token`
+- any Supabase auth/profile tables you want for identity
+
+Then ignore or remove:
+
+- `web/src/world`
+- large room/furniture assets in `web/public`
+- room movement and placement UI
+- games and optional product systems
+
+Minimal publisher flow:
+
+```ts
+import { defaultMediaProvider } from './media/agoraMediaProvider';
+
+const session = await defaultMediaProvider.join({
+  channelName: 'my-live-channel',
+  uid: user.id,
+  role: 'publisher',
+});
+
+await session.publishAudio(true);
+await session.publishCamera(true);
+```
+
+Minimal viewer flow:
+
+```ts
+const session = await defaultMediaProvider.join({
+  channelName: 'my-live-channel',
+  uid: user.id,
+  role: 'subscriber',
+});
+
+session.onRemotePublished(async (remoteUser, kind) => {
+  await session.subscribeRemote(remoteUser, kind);
+  if (kind === 'video') session.playRemoteVideo(remoteUser, 'remote-video');
+  if (kind === 'audio') session.playRemoteAudio(remoteUser);
+});
+```
+
+That means Roomie can power a Twitch-style theater, a drop-in video chat feature, a webinar room, a creator livestream, or a private group call product without requiring users to walk around a 3D space.
+
+## Assets
+
+Starter assets are bundled locally under `web/public` and served with:
+
+```bash
+VITE_ASSET_BASE_URL=/
+```
+
+For production, you can keep the Git LFS asset bundle, move assets to a CDN/R2 bucket with the same folder layout, or publish a release asset archive. See [docs/assets.md](docs/assets.md).
+
+Roomie-owned code and bundled starter assets are released under the MIT License unless otherwise noted. See [ASSET_LICENSES.md](ASSET_LICENSES.md) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
+
+## Mobile
+
+Build and copy web assets into the native shells:
+
+```bash
+npm --prefix web run build
+npm --prefix web run cap:copy
+```
+
+Open native projects:
+
+```bash
+npm --prefix web run cap:ios
+npm --prefix web run cap:android
+```
+
+Before release, do a short device smoke test for camera/mic prompts, room voice, livestreaming, direct calls, and background/foreground recovery. See [docs/mobile-smoke.md](docs/mobile-smoke.md).
 
 ## Useful Commands
 
 ```bash
-npm run typecheck
-npm run lint
-npm run build
-npm run release:verify
+npm run dev                 # Start Vite dev server
+npm run typecheck           # TypeScript check
+npm run lint                # ESLint
+npm run build               # Production web build
+npm run release:verify      # Hygiene + secret scan + typecheck + lint + build
 npm --prefix web run cap:copy
 ```
 
-## Optional Modules
+## Docs
 
-The starter defaults to the plug-and-play rooms path. Enable product modules in `web/.env` only when you have the matching Supabase migrations, webhooks, and provider credentials wired. See `docs/backend-modules.md` for the core/optional split.
+- [Supabase setup](docs/supabase.md)
+- [Backend modules](docs/backend-modules.md)
+- [Media and streaming](docs/media.md)
+- [Asset folders and release strategy](docs/assets.md)
+- [Mobile setup](docs/mobile.md)
+- [Mobile smoke checks](docs/mobile-smoke.md)
+- [Release checklist](docs/release.md)
+- [GitHub publish steps](docs/github-publish.md)
 
-- `VITE_ENABLE_WAITLIST`
-- `VITE_ENABLE_INVITES`
-- `VITE_ENABLE_ECONOMY`
-- `VITE_ENABLE_GIFTS`
-- `VITE_ENABLE_DAILY_REWARDS`
-- `VITE_ENABLE_PUSH`
-- `VITE_ENABLE_PAYMENTS`
+External docs:
+
+- [Supabase local development](https://supabase.com/docs/guides/local-development)
+- [Supabase Edge Functions](https://supabase.com/docs/guides/functions)
+- [Agora video calling docs](https://docs.agora.io/en/video-calling/overview/product-overview)
+- [Agora token authentication workflow](https://docs.agora.io/en/video-calling/get-started/authentication-workflow)
+- [Capacitor docs](https://capacitorjs.com/docs)
+- [Babylon.js docs](https://doc.babylonjs.com/)
+- [Vite docs](https://vite.dev/guide/)
 
 ## Release Checklist
 
-- Rotate any credentials that ever lived in the private source history.
-- Publish from this sanitized clone or a fresh repository, not the old dirty history.
-- Move bundled binary assets to Git LFS or a documented release asset bundle.
-- Confirm `git status` contains no `.env`, `.temp`, `.pnpm-store`, build output, Pods, or generated Capacitor web assets.
-- Complete `ASSET_LICENSES.md` before distributing bundled art, audio, GLB, Rive, MediaPipe, or hosted assets.
+- Run `npm run release:verify`.
+- Confirm `git lfs ls-files` includes bundled GLB, image, audio, Rive, MediaPipe, and WASM assets.
+- Confirm there are no `.env`, `.temp`, `.pnpm-store`, `web/dist`, Pods, `.DS_Store`, or copied Capacitor web assets in Git.
+- Rotate any credentials that ever existed in a private source history.
+- Verify the local asset license manifest and third-party notices.
+- Smoke test two-browser media and native camera/mic behavior before tagging.
 
-See `docs/github-publish.md` for the fresh GitHub repository steps.
+## License
+
+MIT. See [LICENSE](LICENSE).
