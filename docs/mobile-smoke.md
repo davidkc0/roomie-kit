@@ -1,6 +1,6 @@
 # Mobile Smoke Checks
 
-The app worked before open-sourcing, and the native shells were not heavily redesigned in this cleanup. Still, media code was consolidated behind the provider layer, so do one short native pass before a public release.
+Run a native smoke test before publishing a release or shipping a customer app with mobile support.
 
 ## iOS
 

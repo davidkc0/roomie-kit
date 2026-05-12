@@ -8,7 +8,7 @@
   web/src/world/               Babylon.js room and avatar rendering
   web/public/                  Local starter assets served by Vite
   supabase/                    Migrations, config, and Edge Functions
-  docs/                        GitBook-ready documentation
+  docs/                        Documentation
 ```
 
 Important areas:
@@ -18,6 +18,6 @@ Important areas:
 - `web/src/avatars`: avatar texture and configuration helpers.
 - `web/public/roomie-local`: empty local override folders for customer assets.
 - `supabase/functions/agora-token`: core media token endpoint.
-- `docs/SUMMARY.md`: GitBook sidebar structure.
+- `docs/SUMMARY.md`: documentation sidebar structure.
 
 The virtual room is only one consumer of the realtime and media stack. Streaming-only apps can keep the media pieces and remove or ignore the room/world pieces.

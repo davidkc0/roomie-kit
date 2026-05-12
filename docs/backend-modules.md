@@ -47,4 +47,4 @@ npx supabase functions deploy close-weekly-leaderboards
 
 ## Migration Policy
 
-This cleanup keeps the existing migration history so the cloned app remains compatible with its current schema. For a stricter public starter, the next release pass should split migrations into `core`, `economy`, `push`, `payments`, and `cron` folders or publish separate SQL bundles. Until then, app feature flags keep optional systems non-blocking while the database can still include their tables.
+The starter keeps optional module tables in the database while feature flags keep those systems non-blocking in the app. If your fork does not need optional product systems, you can leave the tables unused or split migrations into core and optional bundles in your own deployment workflow.

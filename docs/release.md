@@ -8,9 +8,7 @@ npm run release:verify
 
 That command checks for generated/native clutter, removed service references, obvious committed secrets, TypeScript errors, lint errors, and a production web build.
 
-Before creating a public repository, also rotate any service credentials that ever existed in this clone, publish from clean history or a sanitized starter repo, and run a full dependency/license review.
-
-This cloned folder has had its old `.git` directory removed. Initialize a new repository only after you are ready to publish the sanitized tree.
+Before creating a public repository, rotate any service credentials that may have existed in private development history, publish from clean history, and run a dependency/license review.
 
 ## Public Repo Prep
 
@@ -23,5 +21,3 @@ This cloned folder has had its old `.git` directory removed. Initialize a new re
 ## Manual Release Checks
 
 `npm run release:verify` covers local hygiene, secret patterns, typecheck, lint, and build. Before tagging, also run a dependency/license scan, inspect asset licenses, confirm clean history, and do at least one two-browser media smoke test for room voice, TV-head video, theater stream, personal-room video, and direct calls.
-
-See `docs/github-publish.md` for the exact fresh-repo + Git LFS sequence.

@@ -1,12 +1,6 @@
 # Managed Hosting Overview
 
-Managed Hosting is the paid Roomie Kit deployment layer.
-
-Plan:
-
-- `69 USD/month`
-- No setup fee
-- Cancel anytime before the next billing period
+Managed Hosting is the paid Roomie Kit deployment layer. See the [plans section](https://roomiekit.io/#pricing) for current pricing.
 
 Managed Hosting provides:
 
@@ -16,6 +10,7 @@ Managed Hosting provides:
 - Health checks.
 - Update tooling.
 - Support.
+- Billing management through the Roomie Kit account portal.
 
 Customers still own their infrastructure:
 

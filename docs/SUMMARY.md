@@ -3,7 +3,6 @@
 ## Start Here
 
 - [Overview](README.md)
-- [Project overview](start-here/overview.md)
 - [Quickstart](start-here/quickstart.md)
 - [Repository structure](start-here/repository-layout.md)
 - [What you can build](start-here/what-you-can-build.md)
@@ -18,7 +17,6 @@
 - [Mobile setup](mobile.md)
 - [Mobile smoke checks](mobile-smoke.md)
 - [Release checklist](release.md)
-- [GitHub publish steps](github-publish.md)
 
 ## Livestreaming
 
@@ -29,7 +27,7 @@
 
 ## Managed Hosting
 
-- [Plan overview](managed-hosting/overview.md)
+- [Managed Hosting overview](managed-hosting/overview.md)
 - [Account and billing](managed-hosting/account-billing.md)
 - [License key and CLI login](managed-hosting/cli-license.md)
 - [Provider keys](managed-hosting/provider-keys.md)
@@ -47,4 +45,3 @@
 - [Security policy](reference/security.md)
 - [Asset licenses](reference/asset-licenses.md)
 - [Third-party notices](reference/third-party-notices.md)
-- [GitBook publishing](reference/gitbook-publishing.md)
