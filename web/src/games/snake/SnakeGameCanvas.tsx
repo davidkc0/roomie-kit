@@ -9,6 +9,7 @@ import { useEconomyStore } from '../../state/economyStore';
 import { SnakeLeaderboard } from '../../components/SnakeLeaderboard';
 import { useOrientationLock } from '../../hooks/useOrientationLock';
 import { GamePrimaryButton } from '../../components/GamePrimaryButton';
+import { brandAssetUrls } from '../../config/customization';
 
 type SnakeGameCanvasProps = {
   gameMode: boolean;
@@ -342,7 +343,7 @@ export function SnakeGameCanvas({
             // Main Menu
             <div className="flex flex-col items-center gap-6">
               <div className="w-32 h-32 animate-bounce">
-                <img src="/snake_logo.png" alt="Snake" className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(74,222,128,0.4)]" />
+                <img src={brandAssetUrls.snakeLogo} alt="Snake" className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(74,222,128,0.4)]" />
               </div>
               <h2 className="text-2xl font-bold text-white">Play Snake</h2>
 
@@ -358,7 +359,7 @@ export function SnakeGameCanvas({
                     <>✨ 1 Free Game</>
                   ) : (
                     <>
-                      <img src="/coin.png" alt="Coins" className="w-4 h-4 object-contain" />
+                      <img src={brandAssetUrls.coinIcon} alt="Coins" className="w-4 h-4 object-contain" />
                       {gamePlayCost.cost} Coins / game
                     </>
                   )}

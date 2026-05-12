@@ -11,6 +11,7 @@ import { useRoomPresence } from '../hooks/useRoomPresence';
 import { PersonalRoomCard } from '../components/PersonalRoomCard';
 import { useOrientationLock } from '../hooks/useOrientationLock';
 import { appConfig } from '../config/app';
+import { getLobbyCardUrl } from '../config/customization';
 import { DEFAULT_PROFILE_IMAGE_URL, resolveAssetUrl } from '../config/r2';
 
 console.log('[Lobby.tsx] Module loaded');
@@ -34,6 +35,8 @@ export default function Lobby() {
   const profileImageUrl = resolveAssetUrl(
     profile?.avatar_headshot_url || profile?.profile_image_url || DEFAULT_PROFILE_IMAGE_URL
   );
+  const loungeCardUrl = getLobbyCardUrl('lounge', loungeCardBg);
+  const theaterCardUrl = getLobbyCardUrl('theater', theaterCardBg);
 
   useEffect(() => {
     fetchRooms();
@@ -157,7 +160,7 @@ export default function Lobby() {
             {/* Background Image */}
             <div
               className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url(${loungeCardBg})` }}
+              style={{ backgroundImage: `url(${loungeCardUrl})` }}
             />
 
             {/* Dark Overlay with Blur */}
@@ -198,7 +201,7 @@ export default function Lobby() {
             {/* Background Image */}
             <div
               className="absolute inset-0 bg-cover bg-center"
-              style={{ backgroundImage: `url(${theaterCardBg})` }}
+              style={{ backgroundImage: `url(${theaterCardUrl})` }}
             />
 
             {/* Dark Overlay with Blur */}
@@ -326,6 +329,7 @@ export default function Lobby() {
  */
 function HexArenaCard({ onClick }: { onClick: () => void }) {
   const userCount = useRoomPresence('hex');
+  const hexArenaCardUrl = getLobbyCardUrl('hexArena', hexArenaCardBg);
 
   return (
     <button
@@ -333,7 +337,7 @@ function HexArenaCard({ onClick }: { onClick: () => void }) {
       className="group relative flex h-40 flex-col items-center justify-center rounded-xl overflow-hidden border border-white/10 transition-all col-span-full sm:col-span-1 active:scale-[0.98]"
     >
       {/* Card Background Image */}
-      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${hexArenaCardBg})` }} />
+      <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${hexArenaCardUrl})` }} />
 
       {/* Dark Overlay for text readability */}
       <div className="absolute inset-0 bg-black/40" />

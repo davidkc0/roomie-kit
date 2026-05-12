@@ -5,42 +5,40 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#7B2FFF',
-        secondary: '#00C9FF',
-        accent: '#FF2E9F',
-        brand: { // Keeping for backward compatibility temporarily if needed, but aliasing to new system
-          bg: '#13141C',
-          primary: '#7B2FFF',
-          secondary: '#00C9FF',
-          primary: '#7B2FFF',
-          secondary: '#00C9FF',
-          accent: '#7C3AED', // Vivid Purple from icon
-          peach: '#FDBA74', // Peach from icon
+        primary: 'rgb(var(--color-primary) / <alpha-value>)',
+        secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
+        accent: 'rgb(var(--color-accent) / <alpha-value>)',
+        brand: {
+          bg: 'rgb(var(--color-bg-base) / <alpha-value>)',
+          primary: 'rgb(var(--color-primary) / <alpha-value>)',
+          secondary: 'rgb(var(--color-secondary) / <alpha-value>)',
+          accent: 'rgb(var(--color-accent) / <alpha-value>)',
+          peach: '#FDBA74',
         },
         bg: {
-          base: '#13141C',
-          surface: '#1C1D27',
-          elevated: '#252631',
+          base: 'rgb(var(--color-bg-base) / <alpha-value>)',
+          surface: 'rgb(var(--color-bg-surface) / <alpha-value>)',
+          elevated: 'rgb(var(--color-bg-elevated) / <alpha-value>)',
         },
         border: {
-          DEFAULT: '#363742',
-          subtle: '#2A2B36',
+          DEFAULT: 'rgb(var(--color-border) / <alpha-value>)',
+          subtle: 'rgb(var(--color-border-subtle) / <alpha-value>)',
         },
         text: {
-          primary: '#FFFFFF',
-          secondary: '#B8B8C8',
-          tertiary: '#78788C',
-          disabled: '#4E4E5C',
+          primary: 'rgb(var(--color-text-primary) / <alpha-value>)',
+          secondary: 'rgb(var(--color-text-secondary) / <alpha-value>)',
+          tertiary: 'rgb(var(--color-text-tertiary) / <alpha-value>)',
+          disabled: 'rgb(var(--color-text-disabled) / <alpha-value>)',
         },
-        success: '#00FF9C',
-        warning: '#FFB800',
-        error: '#FF3D5C',
-        info: '#00A8E8',
+        success: 'rgb(var(--color-success) / <alpha-value>)',
+        warning: 'rgb(var(--color-warning) / <alpha-value>)',
+        error: 'rgb(var(--color-error) / <alpha-value>)',
+        info: 'rgb(var(--color-info) / <alpha-value>)',
       },
       backgroundImage: {
-        'gradient-border': 'linear-gradient(135deg, #00C9FF 0%, #7B2FFF 100%)',
-        'gradient-fill': 'linear-gradient(135deg, rgba(0,201,255,0.15) 0%, rgba(123,47,255,0.15) 100%)',
-        'brand-gradient': 'linear-gradient(135deg, #7C3AED 0%, #D946EF 50%, #FDBA74 100%)', // Purple -> Fuchsia -> Peach
+        'gradient-border': 'linear-gradient(135deg, rgb(var(--color-secondary)) 0%, rgb(var(--color-primary)) 100%)',
+        'gradient-fill': 'linear-gradient(135deg, rgb(var(--color-secondary) / 0.15) 0%, rgb(var(--color-primary) / 0.15) 100%)',
+        'brand-gradient': 'linear-gradient(135deg, rgb(var(--color-primary)) 0%, rgb(var(--color-accent)) 50%, #FDBA74 100%)',
       },
       keyframes: {
         'slide-up': {

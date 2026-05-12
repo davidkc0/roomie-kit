@@ -26,7 +26,8 @@ import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import '@babylonjs/loaders';
 import { X, Check, User, Shirt, Footprints, Palette, Scissors, Star, Lock } from 'lucide-react';
 import { CoinBalanceButton } from './CoinBalanceButton';
-import { DEFAULT_PROFILE_IMAGE_URL, R2_PATHS, resolveAssetUrl } from '../config/r2';
+import { brandAssetUrls } from '../config/customization';
+import { DEFAULT_PROFILE_IMAGE_URL, resolveAssetUrl } from '../config/r2';
 import { type AvatarConfig, DEFAULT_AVATAR_CONFIG, applyAvatarTextures } from '../avatars/avatarTextures';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../state/authStore';
@@ -209,7 +210,7 @@ export function AvatarEditor({ initialConfig, onSave, onClose }: AvatarEditorPro
         dirLight.intensity = 1.0;
 
         // Load base avatar - using body3.glb
-        const avatarUrl = `${R2_PATHS.avatars}/body3.glb?meshLod=2&t=${Date.now()}`;
+        const avatarUrl = `${resolveAssetUrl('body3.glb', 'avatars')}?meshLod=2&t=${Date.now()}`;
         SceneLoader.ImportMeshAsync('', '', avatarUrl, scene)
             .then((result) => {
                 console.log('[AvatarEditor] Loaded avatar meshes:', result.meshes.map(m => m.name));
@@ -669,7 +670,7 @@ export function AvatarEditor({ initialConfig, onSave, onClose }: AvatarEditorPro
                                                 <div className="flex items-center gap-1 mt-0.5">
                                                     {isLocked && option.unlock_type === 'purchase' ? (
                                                         <>
-                                                            <img src="/coin.png" alt="coins" className="w-3 h-3 object-contain" />
+                                                            <img src={brandAssetUrls.coinIcon} alt="coins" className="w-3 h-3 object-contain" />
                                                             <span className="text-[10px] font-bold text-yellow-400">{option.coin_price}</span>
                                                         </>
                                                     ) : isLocked && option.unlock_type === 'streak' ? (
@@ -732,7 +733,7 @@ export function AvatarEditor({ initialConfig, onSave, onClose }: AvatarEditorPro
                             // Purchase flow
                             <>
                                 <div className="flex items-center justify-center gap-2 mb-4">
-                                    <img src="/coin.png" alt="coins" className="w-6 h-6 object-contain drop-shadow" />
+                                    <img src={brandAssetUrls.coinIcon} alt="coins" className="w-6 h-6 object-contain drop-shadow" />
                                     <span className="text-xl font-bold text-yellow-400">{purchaseConfirm.coin_price}</span>
                                     <span className="text-sm text-slate-400">coins</span>
                                 </div>
@@ -770,7 +771,7 @@ export function AvatarEditor({ initialConfig, onSave, onClose }: AvatarEditorPro
                                             <div className="w-5 h-5 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
                                         ) : (
                                             <>
-                                                <img src="/coin.png" alt="buy" className="w-4 h-4 object-contain drop-shadow-sm" />
+                                                <img src={brandAssetUrls.coinIcon} alt="buy" className="w-4 h-4 object-contain drop-shadow-sm" />
                                                 Buy
                                             </>
                                         )}

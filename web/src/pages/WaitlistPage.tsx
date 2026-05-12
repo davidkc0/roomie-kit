@@ -8,11 +8,13 @@ import { supabase } from '../lib/supabase';
 import { Settings } from 'lucide-react';
 import roomieLogo from '../assets/roomie_logo_no_background.png';
 import { appConfig } from '../config/app';
+import { getBrandAssetUrl } from '../config/customization';
 
 export default function WaitlistPage() {
     const { user, profile, refreshProfile } = useAuthStore();
     const { waitlistPosition, loadWaitlistPosition, redeemCode, redeemLoading, redeemError } = useInviteStore();
     const navigate = useNavigate();
+    const logoUrl = getBrandAssetUrl('logo', roomieLogo);
 
     const [showCodeInput, setShowCodeInput] = useState(false);
     const [inviteCode, setInviteCode] = useState('');
@@ -121,7 +123,7 @@ export default function WaitlistPage() {
 
                     {/* Logo Section */}
                     <div className="flex flex-col items-center animate-in fade-in slide-in-from-top-4 duration-700">
-                        <img src={roomieLogo} alt="Roomie" className="h-10 w-auto opacity-80" />
+                        <img src={logoUrl} alt={appConfig.appName} className="h-10 w-auto opacity-80" />
                     </div>
 
                     {/* Main Status Card */}

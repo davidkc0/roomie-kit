@@ -1,6 +1,7 @@
 import { useEconomyStore } from '../state/economyStore';
 import { GamePrimaryButton } from './GamePrimaryButton';
 import { calculateDailyReward, MILESTONES as MILESTONE_MAP } from '../utils/economyHelpers';
+import { brandAssetUrls } from '../config/customization';
 
 // Build milestone display data from the shared reward config
 const MILESTONES = Object.entries(MILESTONE_MAP)
@@ -112,7 +113,7 @@ export function StreakInfoDrawer() {
                                         <span className={`font-bold ${reached ? 'text-yellow-400' : 'text-slate-500'}`}>
                                             +{milestone.reward}
                                         </span>
-                                        <img src="/coin.png" className={`w-4 h-4 ${reached ? '' : 'grayscale opacity-50'}`} alt="Coins" />
+                                        <img src={brandAssetUrls.coinIcon} className={`w-4 h-4 ${reached ? '' : 'grayscale opacity-50'}`} alt="Coins" />
                                     </div>
                                 </div>
                             );

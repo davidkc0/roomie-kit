@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect, useCallback } from 'react';
 import type { WorldState } from '../multiplayer/playroom';
+import { resolveAssetUrl } from '../config/r2';
 
 export interface PlayerActivityEvent {
     id: string;
@@ -11,7 +12,7 @@ export interface PlayerActivityEvent {
 const ACTIVITY_TTL_MS = 4000; // Auto-dismiss after 4 seconds
 const WARMUP_MS = 3000; // Ignore events during first 3 seconds (existing players loading in)
 const JOIN_DEDUP_MS = 10000; // Suppress duplicate join notifications within 10 seconds
-const SFX_URL = '/sfx/pop.mp3';
+const SFX_URL = resolveAssetUrl('pop.mp3', 'sfx');
 
 /**
  * Detects player join/leave events.

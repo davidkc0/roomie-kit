@@ -5,6 +5,7 @@ import { useEconomyStore } from '../../state/economyStore';
 import { FullScreenViewer } from './FullScreenViewer';
 import { Hand, Vote, Gift, X, Check } from 'lucide-react';
 import { appConfig } from '../../config/app';
+import { brandAssetUrls } from '../../config/customization';
 
 type ViewerUIProps = {
     myId: string;
@@ -325,7 +326,7 @@ export function ViewerUI({
                                         disabled={!appConfig.features.payments}
                                         className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-yellow-500 hover:bg-yellow-500/20 active:scale-95 transition-all"
                                     >
-                                        <img src="/coin.png" alt="Coin" className="w-4 h-4 object-contain" />
+                                        <img src={brandAssetUrls.coinIcon} alt="Coin" className="w-4 h-4 object-contain" />
                                         <span className="text-xs font-bold">Recharge</span>
                                         <span className="text-[10px]">+</span>
                                     </button>

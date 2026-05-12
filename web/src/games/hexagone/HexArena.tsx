@@ -28,10 +28,10 @@ import {
 import { useHexGameStore } from './hexGameStore';
 import { registerRpc } from '../../multiplayer/playroom';
 import { useScene } from '../../world/scene';
-import { R2_BASE_URL } from '../../config/r2';
+import { resolveAssetUrl } from '../../config/r2';
 import { useHexAudioManager } from './useHexAudioManager';
 
-const HEXAGON_GLB_URL = `${R2_BASE_URL}/hexagon.glb`;
+const HEXAGON_GLB_URL = resolveAssetUrl('hexagon.glb');
 
 // Reusable orange color for fade lerp — single allocation
 const FADE_TARGET_COLOR = new Color3(1, 0.5, 0);

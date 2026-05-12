@@ -100,6 +100,20 @@ Avatar texture filenames are generated from avatar config:
 
 If you prefer CDN/R2 hosting, keep the same folder layout at the bucket root and set `VITE_ASSET_BASE_URL=https://your-cdn.example.com`.
 
+## Local Overrides
+
+Customer overrides should go in `web/public/roomie-local`, not directly over the starter bundle. The app scans this folder before dev/build/typecheck/lint and generates `web/src/generated/roomie-customization.generated.ts`.
+
+Example:
+
+```text
+web/public/roomie-local/avatars/body3.glb
+web/public/roomie-local/branding/logo.svg
+web/public/roomie-local/rooms/lounge6.glb
+```
+
+Those files resolve as `/roomie-local/...`. Missing files fall back to `VITE_ASSET_BASE_URL` with the same canonical key. See [customization.md](customization.md) for the full naming contract.
+
 ## Public Release Packaging
 
 The starter keeps required assets in `web/public` so a fresh clone can run without a CDN. Before publishing, choose one binary distribution path and document it in the release notes:

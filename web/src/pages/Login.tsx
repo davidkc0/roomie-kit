@@ -7,6 +7,7 @@ import { Capacitor } from '@capacitor/core';
 import { Dialog } from '@capacitor/dialog';
 import { supabase } from '../lib/supabase';
 import { appConfig, authRedirectUrl } from '../config/app';
+import { brandAssetUrls } from '../config/customization';
 
 
 
@@ -317,7 +318,7 @@ export default function Login() {
         >
             <div className="w-full max-w-md space-y-8 rounded-xl bg-bg-elevated p-10 backdrop-blur-sm border border-border text-center">
                 <div className="space-y-4 flex flex-col items-center">
-                    <img src="/logo_with_wordmark.svg" alt="Roomie" className="h-24 w-auto" />
+                    <img src={brandAssetUrls.logoWordmark} alt={appConfig.appName} className="h-24 w-auto" />
                 </div>
 
                 <div className="space-y-4">

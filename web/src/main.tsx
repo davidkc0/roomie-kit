@@ -6,8 +6,10 @@ import { Capacitor } from '@capacitor/core';
 import { App as CapacitorApp } from '@capacitor/app';
 import { supabase } from './lib/supabase';
 import { initializeOneSignal } from './lib/onesignal';
+import { applyRoomieTheme } from './config/customization';
 
 console.log('[main.tsx] Starting app initialization...');
+applyRoomieTheme();
 
 // Initialize PWA Elements (needed for Capacitor Camera on web)
 defineCustomElements(window);
@@ -187,4 +189,3 @@ const showFatalError = () => {
     showFatalError();
   }
 })();
-

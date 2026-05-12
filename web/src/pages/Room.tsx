@@ -14,7 +14,8 @@ import { CollisionBox } from '../world/CollisionBox';
 import { HexArenaRoom, HexPracticeRoom } from '../games/hexagone';
 import { getRoomDefinition } from '../config/rooms';
 import { defaultAvatarUrl } from '../config/app';
-import { R2_BASE_URL, resolveAssetUrl } from '../config/r2';
+import { brandAssetUrls } from '../config/customization';
+import { resolveAssetUrl } from '../config/r2';
 import { Vector3, TransformNode } from '@babylonjs/core';
 import { AbstractMesh, DynamicTexture } from '@babylonjs/core';
 import { useAuthStore } from '../state/authStore';
@@ -2139,7 +2140,7 @@ function RoomMain({ slug }: RoomMainProps) {
                 }}
               />
               <Furniture
-                modelPath={`${R2_BASE_URL}/`}
+                modelPath={resolveAssetUrl('arcade_machine.glb')}
                 modelName="arcade_machine.glb"
                 position={new Vector3(0, 0.01, 7.5)}
                 rotation={new Vector3(0, Math.PI, 0)}
@@ -2293,7 +2294,7 @@ function RoomMain({ slug }: RoomMainProps) {
 
         {/* Chess Action Button - shows when near chess_board */}
         <ActionButton
-          icon={<img src="/chess_logo.png" alt="Chess" className="w-full h-full object-contain drop-shadow-md" />}
+          icon={<img src={brandAssetUrls.chessLogo} alt="Chess" className="w-full h-full object-contain drop-shadow-md" />}
           label="Play Chess"
           visible={nearChessBoard && !ui.gameMode && !isChatOpen && !isChessOpen && !ui.drawingMode}
           onClick={() => { if (!hasPlayedGame) { setHasPlayedGame(true); localStorage.setItem('hasPlayedGame', 'true'); } openChessModal(); }}
@@ -2312,7 +2313,7 @@ function RoomMain({ slug }: RoomMainProps) {
 
         {/* Arcade Action Button - shows when near arcade machine */}
         <ActionButton
-          icon={<img src="/snake_logo.png" alt="Snake" className="w-full h-full object-contain drop-shadow-md" />}
+          icon={<img src={brandAssetUrls.snakeLogo} alt="Snake" className="w-full h-full object-contain drop-shadow-md" />}
           label="Play Snake"
           visible={nearArcade && !ui.gameMode && !isChatOpen && !isChessOpen && !isSnakeOpen && !isMatch3Open && !ui.drawingMode}
           onClick={() => { if (!hasPlayedGame) { setHasPlayedGame(true); localStorage.setItem('hasPlayedGame', 'true'); } openSnakeModal(); }}

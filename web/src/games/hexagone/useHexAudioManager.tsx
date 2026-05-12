@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { resolveAssetUrl } from '../../config/r2';
 
 type AudioManagerContextType = {
     playAudio: (file: string, force?: boolean) => void;
@@ -43,7 +44,7 @@ export function AudioManagerProvider({ children }: { children: React.ReactNode }
 
     // Initialize background music
     useEffect(() => {
-        bgAudio.current = new Audio('/sfx/bg.mp3');
+        bgAudio.current = new Audio(resolveAssetUrl('bg.mp3', 'sfx'));
         bgAudio.current.loop = true;
         bgAudio.current.volume = 0.3;
 
@@ -150,7 +151,7 @@ export function AudioManagerProvider({ children }: { children: React.ReactNode }
         const audio = pool[poolIndexRef.current % pool.length];
         poolIndexRef.current++;
 
-        audio.src = `/sfx/${file}.mp3`;
+        audio.src = resolveAssetUrl(`${file}.mp3`, 'sfx');
         audio.volume = 0.5;
         audio.currentTime = 0;
         audio.play().catch(err => {

@@ -9,6 +9,8 @@ import { useEconomyStore } from '../../state/economyStore';
 import { Match3Leaderboard } from '../../components/Match3Leaderboard';
 import { useOrientationLock } from '../../hooks/useOrientationLock';
 import { GamePrimaryButton } from '../../components/GamePrimaryButton';
+import { brandAssetUrls } from '../../config/customization';
+import { resolveAssetUrl } from '../../config/r2';
 
 type Match3GameCanvasProps = {
     gameMode: boolean;
@@ -19,7 +21,7 @@ type Match3GameCanvasProps = {
 
 // Sprite sheet configuration (768x128, 6 gems at 128x128 each)
 const SPRITE_CONFIG = {
-    path: '/assets/gem_sprite_sheet.png',
+    path: resolveAssetUrl('gem_sprite_sheet.png', 'assets'),
     gemWidth: 128,
     gemHeight: 128,
     gemCount: 6,
@@ -669,7 +671,7 @@ export function Match3GameCanvas({
                                         <>✨ 1 Free Game</>
                                     ) : (
                                         <>
-                                            <img src="/coin.png" alt="Coins" className="w-4 h-4 object-contain" />
+                                            <img src={brandAssetUrls.coinIcon} alt="Coins" className="w-4 h-4 object-contain" />
                                             {gamePlayCost.cost} Coins / game
                                         </>
                                     )}

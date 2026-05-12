@@ -217,6 +217,35 @@ session.onRemotePublished(async (remoteUser, kind) => {
 
 That means Roomie can power a Twitch-style theater, a drop-in video chat feature, a webinar room, a creator livestream, or a private group call product without requiring users to walk around a 3D space.
 
+## Customize Roomie Kit
+
+Roomie Kit includes a plug-in style customization layer for branding, theme colors, and asset overrides.
+
+Edit the single config file:
+
+```text
+web/roomie.config.json
+```
+
+Then run:
+
+```bash
+npm --prefix web run assets:refresh
+```
+
+Put local overrides in `web/public/roomie-local`. Files in that folder win automatically, and everything else falls back to `VITE_ASSET_BASE_URL`:
+
+```text
+web/public/roomie-local/branding/logo.svg
+web/public/roomie-local/branding/cards/lounge.png
+web/public/roomie-local/avatars/body3.glb
+web/public/roomie-local/avatars/thumbnails/thumb_outfit_male_1.png
+web/public/roomie-local/rooms/lounge6.glb
+web/public/roomie-local/sfx/pop.mp3
+```
+
+Built-in theme templates are `roomie-neon`, `stream-dark`, `startup-blue`, `creator-pink`, and `minimal-dark`. See [docs/customization.md](docs/customization.md) for the full folder map, naming rules, and Git LFS notes.
+
 ## Assets
 
 Starter assets are bundled locally under `web/public` and served with:
@@ -263,6 +292,7 @@ npm --prefix web run cap:copy
 - [Supabase setup](docs/supabase.md)
 - [Backend modules](docs/backend-modules.md)
 - [Media and streaming](docs/media.md)
+- [Customization](docs/customization.md)
 - [Asset folders and release strategy](docs/assets.md)
 - [Mobile setup](docs/mobile.md)
 - [Mobile smoke checks](docs/mobile-smoke.md)

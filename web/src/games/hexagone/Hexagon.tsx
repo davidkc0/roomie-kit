@@ -16,7 +16,7 @@ import {
 import '@babylonjs/loaders/glTF';
 import { useScene } from '../../world/scene';
 import { HEX_FADE_DELAY } from './hexConfig';
-import { R2_BASE_URL } from '../../config/r2';
+import { resolveAssetUrl } from '../../config/r2';
 import { useHexAudioManager } from './useHexAudioManager';
 
 interface HexagonProps {
@@ -33,7 +33,7 @@ interface HexagonProps {
 }
 
 // GLB URL from R2
-const HEXAGON_GLB_URL = `${R2_BASE_URL}/hexagon.glb`;
+const HEXAGON_GLB_URL = resolveAssetUrl('hexagon.glb');
 
 /**
  * Convert hex color string to Color3

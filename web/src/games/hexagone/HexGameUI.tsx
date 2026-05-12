@@ -13,6 +13,7 @@ import { useStreamingStore } from '../../state/streamingStore';
 import { useAuthStore } from '../../state/authStore';
 import { callRpc, writeMyState } from '../../multiplayer/playroom';
 import { ArrowLeft, Check, Gift, Eye } from 'lucide-react';
+import { brandAssetUrls } from '../../config/customization';
 import {
     MIN_PLAYERS_TO_START,
     MAX_GAME_PLAYERS,
@@ -469,7 +470,7 @@ export const HexGameUI = memo(function HexGameUI({
                     {lobbyPhase === 'joinWindow' && (
                         <div className="flex-1 flex flex-col items-center justify-center p-6 text-center">
                             <img
-                                src="/hex_arena_logo.png"
+                                src={brandAssetUrls.hexArenaLogo}
                                 alt="Hex Arena"
                                 className="w-64 max-w-[80%] h-auto object-contain drop-shadow-2xl mb-6 animate-in zoom-in duration-500"
                             />
@@ -535,7 +536,7 @@ export const HexGameUI = memo(function HexGameUI({
                                                     <>✨ 1 Free Game</>
                                                 ) : (
                                                     <>
-                                                        <img src="/coin.png" alt="Coins" className="w-4 h-4 object-contain" />
+                                                        <img src={brandAssetUrls.coinIcon} alt="Coins" className="w-4 h-4 object-contain" />
                                                         {gamePlayCost.cost} Coins / game
                                                     </>
                                                 )}
@@ -549,7 +550,7 @@ export const HexGameUI = memo(function HexGameUI({
                                             JOIN MATCH
                                             {gamePlayCost && !gamePlayCost.isFree && (
                                                 <span className="flex items-center gap-1 text-slate-500 text-base font-medium ml-1">
-                                                    · <img src="/coin.png" alt="" className="w-5 h-5 object-contain" /> {gamePlayCost.cost}
+                                                    · <img src={brandAssetUrls.coinIcon} alt="" className="w-5 h-5 object-contain" /> {gamePlayCost.cost}
                                                 </span>
                                             )}
                                         </GamePrimaryButton>
@@ -767,7 +768,7 @@ export const HexGameUI = memo(function HexGameUI({
                                                     <span className="text-2xl">{emoji}</span>
                                                     <span className="text-white text-xs font-medium">{gift.name}</span>
                                                     <div className="flex items-center gap-1">
-                                                        <img src="/coin.png" alt="" className="w-3 h-3 object-contain" />
+                                                        <img src={brandAssetUrls.coinIcon} alt="" className="w-3 h-3 object-contain" />
                                                         <span className="text-white/60 text-[10px]">{gift.cost}</span>
                                                     </div>
                                                 </button>

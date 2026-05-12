@@ -9,7 +9,7 @@ import {
 } from '@babylonjs/core';
 import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import '@babylonjs/loaders';
-import { R2_PATHS, resolveAssetUrl } from '../config/r2';
+import { resolveAssetUrl } from '../config/r2';
 
 export type GlbAvatar = {
   root: TransformNode;
@@ -76,7 +76,7 @@ async function loadAndCacheAnim(
       pending = (async (): Promise<CachedAnimEntry | null> => {
         try {
           const animResult = await SceneLoader.ImportMeshAsync(
-            '', `${R2_PATHS.animations}/`, filename, scene
+            '', '', resolveAssetUrl(filename, 'animations'), scene
           );
 
           // Extract animation data before disposing the loaded meshes

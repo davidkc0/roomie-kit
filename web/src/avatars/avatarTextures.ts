@@ -7,7 +7,7 @@
  */
 
 import { AbstractMesh, Texture, PBRMaterial, Scene } from '@babylonjs/core';
-import { R2_PATHS } from '../config/r2';
+import { resolveAssetUrl } from '../config/r2';
 
 // Max texture resolution on mobile (iOS/Android).
 // 4096×4096 RGBA = 64MB GPU memory per texture.
@@ -43,11 +43,10 @@ export const DEFAULT_AVATAR_CONFIG: AvatarConfig = {
 export function getAvatarTextureUrls(config: AvatarConfig) {
     // Costume override — replaces all slots
     if (config.costume) {
-        const base = `${R2_PATHS.avatars}/Costumes`;
         return {
-            head: `${base}/${config.costume}_head.jpg`,
-            body: `${base}/${config.costume}_body.jpg`,
-            feet: `${base}/${config.costume}_feet.jpg`,
+            head: resolveAssetUrl(`Costumes/${config.costume}_head.jpg`, 'avatars'),
+            body: resolveAssetUrl(`Costumes/${config.costume}_body.jpg`, 'avatars'),
+            feet: resolveAssetUrl(`Costumes/${config.costume}_feet.jpg`, 'avatars'),
         };
     }
 
@@ -58,13 +57,13 @@ export function getAvatarTextureUrls(config: AvatarConfig) {
     // Sandals (female 5 & 6) include skin tone in the filename
     const isSandal = config.gender === 'female' && (config.feet === '5' || config.feet === '6');
     const feetUrl = isSandal
-        ? `${R2_PATHS.avatars}/Feet/feet_${config.gender}${config.feet}_skinTone${config.skinTone}.jpg`
-        : `${R2_PATHS.avatars}/Feet/feet_${config.gender}${config.feet}.jpg`;
+        ? `Feet/feet_${config.gender}${config.feet}_skinTone${config.skinTone}.jpg`
+        : `Feet/feet_${config.gender}${config.feet}.jpg`;
 
     return {
-        head: `${R2_PATHS.avatars}/Head/head_${config.gender}_skinTone${config.skinTone}_hairColor${hairColor}_hairstyle${hair}.jpg`,
-        body: `${R2_PATHS.avatars}/Body/body_${config.gender}_outfit${config.outfit}_skinTone${config.skinTone}.jpg`,
-        feet: feetUrl,
+        head: resolveAssetUrl(`Head/head_${config.gender}_skinTone${config.skinTone}_hairColor${hairColor}_hairstyle${hair}.jpg`, 'avatars'),
+        body: resolveAssetUrl(`Body/body_${config.gender}_outfit${config.outfit}_skinTone${config.skinTone}.jpg`, 'avatars'),
+        feet: resolveAssetUrl(feetUrl, 'avatars'),
     };
 }
 

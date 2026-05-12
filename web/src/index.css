@@ -3,39 +3,61 @@
 @tailwind utilities;
 
 :root {
-  /* Core Brand */
-  --primary: #7B2FFF;
-  --secondary: #00C9FF;
-  --accent: #FF2E9F;
+  /* Core Brand RGB triplets used by Tailwind and runtime customization. */
+  --color-primary: 123 47 255;
+  --color-secondary: 0 201 255;
+  --color-accent: 255 46 159;
 
   /* Backgrounds */
-  --bg-base: #13141C;
-  --bg-surface: #1C1D27;
-  --bg-elevated: #252631;
-  --border: #363742;
-  --border-subtle: #2A2B36;
+  --color-bg-base: 19 20 28;
+  --color-bg-surface: 28 29 39;
+  --color-bg-elevated: 37 38 49;
+  --color-border: 54 55 66;
+  --color-border-subtle: 42 43 54;
 
   /* Text */
-  --text-primary: #FFFFFF;
-  --text-secondary: #B8B8C8;
-  --text-tertiary: #78788C;
-  --text-disabled: #4E4E5C;
+  --color-text-primary: 255 255 255;
+  --color-text-secondary: 184 184 200;
+  --color-text-tertiary: 120 120 140;
+  --color-text-disabled: 78 78 92;
 
   /* Functional */
-  --success: #00FF9C;
-  --warning: #FFB800;
-  --error: #FF3D5C;
-  --info: #00A8E8;
+  --color-success: 0 255 156;
+  --color-warning: 255 184 0;
+  --color-error: 255 61 92;
+  --color-info: 0 168 232;
+
+  /* Backward-compatible CSS variables. */
+  --primary: rgb(var(--color-primary));
+  --secondary: rgb(var(--color-secondary));
+  --accent: rgb(var(--color-accent));
+  --bg-base: rgb(var(--color-bg-base));
+  --bg-surface: rgb(var(--color-bg-surface));
+  --bg-elevated: rgb(var(--color-bg-elevated));
+  --border: rgb(var(--color-border));
+  --border-subtle: rgb(var(--color-border-subtle));
+  --text-primary: rgb(var(--color-text-primary));
+  --text-secondary: rgb(var(--color-text-secondary));
+  --text-tertiary: rgb(var(--color-text-tertiary));
+  --text-disabled: rgb(var(--color-text-disabled));
+  --success: rgb(var(--color-success));
+  --warning: rgb(var(--color-warning));
+  --error: rgb(var(--color-error));
+  --info: rgb(var(--color-info));
 
   /* Status */
-  --status-online: #00FF9C;
-  --status-away: #FFB800;
-  --status-busy: #FF3D5C;
-  --status-offline: #4E4E5C;
+  --status-online: rgb(var(--color-success));
+  --status-away: rgb(var(--color-warning));
+  --status-busy: rgb(var(--color-error));
+  --status-offline: rgb(var(--color-text-disabled));
+
+  /* Legacy effect helpers used by a few component shadows. */
+  --brand-primary-rgb: 123, 47, 255;
+  --color-brand-accent: rgb(var(--color-accent));
 
   /* Gradients */
-  --gradient-icon: linear-gradient(135deg, #7B2FFF 0%, #00C9FF 100%);
-  --gradient-header: linear-gradient(180deg, #7B2FFF 0%, #00C9FF 100%);
+  --gradient-icon: linear-gradient(135deg, rgb(var(--color-primary)) 0%, rgb(var(--color-secondary)) 100%);
+  --gradient-header: linear-gradient(180deg, rgb(var(--color-primary)) 0%, rgb(var(--color-secondary)) 100%);
   --gradient-card: linear-gradient(135deg, rgba(123, 47, 255, 0.1) 0%, rgba(0, 201, 255, 0.1) 100%);
 }
 

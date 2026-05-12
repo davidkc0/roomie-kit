@@ -1,6 +1,7 @@
 import { useEconomyStore } from '../state/economyStore';
 import { useEffect } from 'react';
 import { appConfig } from '../config/app';
+import { brandAssetUrls } from '../config/customization';
 
 type Props = {
     variant?: 'profile' | 'room';  // Different styles for different locations
@@ -41,7 +42,7 @@ export function CoinBalanceButton({ variant = 'profile' }: Props) {
         >
             {/* Coins */}
             <div className="flex items-center gap-1.5">
-                <img src="/coin.png" alt="Coins" className="w-5 h-5 object-contain" />
+                <img src={brandAssetUrls.coinIcon} alt="Coins" className="w-5 h-5 object-contain" />
                 <span className={`font-bold ${isProfile ? 'text-yellow-400' : 'text-yellow-300'}`}>
                     {coinBalance.toLocaleString()}
                 </span>

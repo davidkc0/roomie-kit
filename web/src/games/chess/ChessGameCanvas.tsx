@@ -15,6 +15,7 @@ import type { PlayerState } from '../../multiplayer/playroom';
 import { useOrientationLock } from '../../hooks/useOrientationLock';
 import { GamePrimaryButton } from '../../components/GamePrimaryButton';
 import { LoadingSpinner } from '../../components/LoadingSpinner';
+import { brandAssetUrls } from '../../config/customization';
 
 type RoomPlayer = {
     id: string; // Playroom ID
@@ -433,7 +434,7 @@ export function ChessGameCanvas({ onClose, onGameEnd, players = [], myPlayroomId
                             // Start menu
                             <div className="flex flex-col items-center gap-6">
                                 <div className="w-32 h-32 animate-bounce">
-                                    <img src="/chess_logo.png" alt="Chess" className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]" />
+                                    <img src={brandAssetUrls.chessLogo} alt="Chess" className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(255,255,255,0.4)]" />
                                 </div>
                                 <h2 className="text-2xl font-bold text-white">Play Chess</h2>
 
@@ -449,7 +450,7 @@ export function ChessGameCanvas({ onClose, onGameEnd, players = [], myPlayroomId
                                             <>✨ 1 Free Game</>
                                         ) : (
                                             <>
-                                                <img src="/coin.png" alt="Coins" className="w-4 h-4 object-contain" />
+                                                <img src={brandAssetUrls.coinIcon} alt="Coins" className="w-4 h-4 object-contain" />
                                                 {gamePlayCost.cost} Coins / game
                                             </>
                                         )}

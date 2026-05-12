@@ -1,6 +1,6 @@
 
 
-import { R2_PATHS } from './r2';
+import { resolveAssetUrl } from './r2';
 
 export type RoomType = 'default' | 'custom-glb' | 'game-arena';
 
@@ -32,7 +32,7 @@ export const DEFAULT_ROOM: RoomDefinition = {
 export const LOUNGE_ROOM: RoomDefinition = {
     id: 'lounge',
     type: 'custom-glb',
-    glbUrl: `${R2_PATHS.rooms}/lounge6.glb`,
+    glbUrl: resolveAssetUrl('lounge6.glb', 'rooms'),
     spawnPointName: 'spawn_point',
     envScale: 3.0,
     roomHalfSize: 30,
@@ -43,7 +43,7 @@ export const LOUNGE_ROOM: RoomDefinition = {
 export const THEATER_ROOM: RoomDefinition = {
     id: 'theater',
     type: 'custom-glb',
-    glbUrl: `${R2_PATHS.rooms}/theater2.glb`,
+    glbUrl: resolveAssetUrl('theater2.glb', 'rooms'),
     spawnPointName: 'spawn_point',
     envScale: 1.0,
     roomHalfSize: 40,
@@ -70,4 +70,3 @@ export function getRoomDefinition(slug?: string): RoomDefinition {
     if (!slug) return DEFAULT_ROOM;
     return ROOM_REGISTRY[slug] || DEFAULT_ROOM;
 }
-

@@ -3,6 +3,7 @@ import { useEconomyStore } from '../state/economyStore';
 import { useAuthStore } from '../state/authStore';
 import { getNextMilestone } from '../utils/economyHelpers';
 import { GamePrimaryButton } from './GamePrimaryButton';
+import { brandAssetUrls } from '../config/customization';
 
 export function DailyRewardModal() {
     const {
@@ -158,7 +159,7 @@ function RewardContent({ pendingReward, loading, onClaim, onSkip }: { pendingRew
             <div className="text-center mb-6">
                 <div className="flex justify-center mb-4">
                     <div className="relative">
-                        <img src="/coin.png" alt="Coins" className="w-20 h-20 object-contain drop-shadow-xl" />
+                        <img src={brandAssetUrls.coinIcon} alt="Coins" className="w-20 h-20 object-contain drop-shadow-xl" />
                         <div className="absolute -bottom-2 -right-2 bg-bg-elevated text-white text-xs font-bold px-2 py-0.5 rounded-full border border-border">
                             Day {pendingStreak}
                         </div>

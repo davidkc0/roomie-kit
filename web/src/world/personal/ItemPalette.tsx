@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Lock } from 'lucide-react';
+import { brandAssetUrls } from '../../config/customization';
 import { resolveAssetUrl } from '../../config/r2';
 import { supabase } from '../../lib/supabase';
 import { useAuthStore } from '../../state/authStore';
@@ -263,7 +264,7 @@ export function ItemPalette({ onSelectItem, onSelectFloor, onSelectWall }: ItemP
                                             <div className="flex items-center gap-1 mt-auto">
                                                 {item.price_coins > 0 && isLocked ? (
                                                     <>
-                                                        <img src="/coin.png" alt="coins" className="w-3 h-3 object-contain" />
+                                                        <img src={brandAssetUrls.coinIcon} alt="coins" className="w-3 h-3 object-contain" />
                                                         <span className="text-[10px] font-bold text-yellow-400">{item.price_coins}</span>
                                                     </>
                                                 ) : item.price_coins > 0 && !isLocked ? (
@@ -300,7 +301,7 @@ export function ItemPalette({ onSelectItem, onSelectFloor, onSelectWall }: ItemP
                         )}
 
                         <div className="flex items-center justify-center gap-2 mb-4">
-                            <img src="/coin.png" alt="coins" className="w-6 h-6 object-contain drop-shadow" />
+                            <img src={brandAssetUrls.coinIcon} alt="coins" className="w-6 h-6 object-contain drop-shadow" />
                             <span className="text-xl font-bold text-yellow-400">{purchaseConfirm.price_coins}</span>
                             <span className="text-sm text-slate-400">coins</span>
                         </div>
@@ -327,7 +328,7 @@ export function ItemPalette({ onSelectItem, onSelectFloor, onSelectWall }: ItemP
                                     <div className="w-5 h-5 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
                                 ) : (
                                     <>
-                                        <img src="/coin.png" alt="buy" className="w-4 h-4 object-contain drop-shadow-sm" />
+                                        <img src={brandAssetUrls.coinIcon} alt="buy" className="w-4 h-4 object-contain drop-shadow-sm" />
                                         Buy
                                     </>
                                 )}

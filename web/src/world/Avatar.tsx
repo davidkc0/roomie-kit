@@ -20,7 +20,7 @@ import { useScene } from './scene';
 import { useVideoStore } from '../state/videoStore';
 import '../utils/helpers'; // Import to ensure hashCode is available
 import { defaultAvatarUrl } from '../config/app';
-import { R2_PATHS, R2_BASE_URL } from '../config/r2';
+import { resolveAssetUrl } from '../config/r2';
 import { AvatarNameplate } from './AvatarNameplate';
 import { DEFAULT_AVATAR_CONFIG, applyAvatarTextures } from '../avatars/avatarTextures';
 import { writeMyState } from '../multiplayer/playroom';
@@ -225,7 +225,7 @@ function AvatarComponent({ playerId, player, isLocal = false, videoElement, getL
 
       // 1. Create the main head using the provided 3D asset
       // Load the GLB file
-      SceneLoader.ImportMeshAsync('', `${R2_BASE_URL}/`, 'cartoon_tv.glb', scene)
+      SceneLoader.ImportMeshAsync('', '', resolveAssetUrl('cartoon_tv.glb'), scene)
         .then((result) => {
           if (disposedRef.current) {
             result.meshes.forEach(m => m.dispose());
@@ -784,7 +784,7 @@ function AvatarComponent({ playerId, player, isLocal = false, videoElement, getL
 
         console.log(`[Avatar] Loading 3D emote: ${glbName}`);
 
-        const result = await SceneLoader.ImportMeshAsync('', `${R2_PATHS.emotes}/`, glbName, scene);
+        const result = await SceneLoader.ImportMeshAsync('', '', resolveAssetUrl(glbName, 'emotes'), scene);
         emoteMesh = result.meshes[0];
 
         console.log(`[Avatar] ✅ 3D emote loaded: ${glbName}, meshes: ${result.meshes.length}`);
@@ -887,7 +887,7 @@ function AvatarComponent({ playerId, player, isLocal = false, videoElement, getL
       try {
         console.log(`[Avatar] Loading call indicator for ${playerId}`);
 
-        const result = await SceneLoader.ImportMeshAsync('', `${R2_BASE_URL}/`, 'call.glb', scene);
+        const result = await SceneLoader.ImportMeshAsync('', '', resolveAssetUrl('call.glb'), scene);
         callMesh = result.meshes[0];
 
         // Parent to head

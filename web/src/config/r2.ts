@@ -1,4 +1,5 @@
 import { appConfig } from './app';
+import { roomieCustomization } from '../generated/roomie-customization.generated';
 
 // Local, Cloudflare R2, or CDN asset hosting configuration.
 
@@ -13,10 +14,12 @@ export const R2_BASE_URL = appConfig.assetBaseUrl;
  */
 export const R2_PATHS = {
     animations: `${R2_BASE_URL}/animations`,
+    assets: `${R2_BASE_URL}/assets`,
     emotes: `${R2_BASE_URL}/emotes`,
     furniture: `${R2_BASE_URL}/furniture`,
     rooms: `${R2_BASE_URL}/rooms`,
     floor: `${R2_BASE_URL}/floor`,
+    sfx: `${R2_BASE_URL}/sfx`,
     wall: `${R2_BASE_URL}/wall`,
     avatars: `${R2_BASE_URL}/avatars`,
 } as const;
@@ -24,6 +27,7 @@ export const R2_PATHS = {
 type AssetCategory = keyof typeof R2_PATHS;
 
 const ASSET_PATH_MARKERS = ['/roomme-assets/', '/roomie-assets/'];
+const localAssets = roomieCustomization.localAssets as Record<string, string>;
 
 function normalizeRelativeAssetPath(path: string): string {
     const cleanPath = path.trim().replace(/^\/+/, '');
@@ -36,8 +40,15 @@ function normalizeRelativeAssetPath(path: string): string {
     return cleanPath;
 }
 
+function localOverrideForPath(path: string): string | null {
+    const cleanPath = normalizeRelativeAssetPath(path);
+    return localAssets[cleanPath] || null;
+}
+
 function joinAssetPath(path: string): string {
     const cleanPath = normalizeRelativeAssetPath(path);
+    const localOverride = localOverrideForPath(cleanPath);
+    if (localOverride) return localOverride;
     return `${R2_BASE_URL}/${cleanPath}`;
 }
 
@@ -61,8 +72,9 @@ export function resolveAssetUrl(value: string | null | undefined, category?: Ass
         // Not an absolute URL; fall through to local/CDN asset handling.
     }
 
+    if (raw.startsWith('/roomie-local/')) return raw;
     if (raw.startsWith('/')) return joinAssetPath(raw);
-    if (category && !raw.includes('/')) return `${R2_PATHS[category]}/${raw}`;
+    if (category && !raw.includes('/')) return joinAssetPath(`${category}/${raw}`);
     return joinAssetPath(raw);
 }
 

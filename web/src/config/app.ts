@@ -1,4 +1,5 @@
 import { Capacitor } from '@capacitor/core';
+import { roomieCustomization } from '../generated/roomie-customization.generated';
 
 const env = import.meta.env;
 
@@ -16,7 +17,7 @@ function envFlag(name: string): boolean {
 }
 
 export const appConfig = {
-    appName: env.VITE_APP_NAME || 'Roomie',
+    appName: env.VITE_APP_NAME || roomieCustomization.appName || 'Roomie',
     publicAppUrl: trimTrailingSlash(env.VITE_PUBLIC_APP_URL || browserOrigin()),
     deepLinkScheme: env.VITE_DEEP_LINK_SCHEME || 'roomie',
     capacitorAppId: env.VITE_CAPACITOR_APP_ID || 'app.roomie.starter',
@@ -55,4 +56,4 @@ export function authRedirectUrl(path: string): string {
     return Capacitor.isNativePlatform() ? deepLinkUrl(path) : appUrl(path);
 }
 
-export const defaultAvatarUrl = `${appConfig.assetBaseUrl}/avatars/body3.glb`;
+export const defaultAvatarUrl = 'avatars/body3.glb';

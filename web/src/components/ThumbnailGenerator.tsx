@@ -21,7 +21,7 @@ import {
 } from '@babylonjs/core';
 import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import '@babylonjs/loaders';
-import { R2_PATHS } from '../config/r2';
+import { resolveAssetUrl } from '../config/r2';
 import { type AvatarConfig, applyAvatarTextures } from '../avatars/avatarTextures';
 
 type ThumbnailType = 'outfit' | 'shoes' | 'skin' | 'hair' | 'costume';
@@ -124,7 +124,7 @@ export function ThumbnailGenerator() {
         dirLight.intensity = 0.8;
 
         setStatus('Loading avatar model...');
-        SceneLoader.ImportMeshAsync('', '', `${R2_PATHS.avatars}/body3.glb?meshLod=2&t=${Date.now()}`, scene)
+        SceneLoader.ImportMeshAsync('', '', `${resolveAssetUrl('body3.glb', 'avatars')}?meshLod=2&t=${Date.now()}`, scene)
             .then((result) => {
                 if (result.meshes[0]) {
                     result.meshes[0].position.y = 0;

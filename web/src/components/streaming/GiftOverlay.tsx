@@ -1,6 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useRive, Layout, Fit, Alignment } from '@rive-app/react-canvas';
 import { useStreamingStore } from '../../state/streamingStore';
+import { resolveAssetUrl } from '../../config/r2';
 
 /**
  * GiftOverlay
@@ -77,7 +78,7 @@ export function GiftOverlay() {
  */
 function RiveGift({ artboard }: { artboard: string }) {
     const { RiveComponent } = useRive({
-        src: '/assets/gifts.riv',
+        src: resolveAssetUrl('gifts.riv', 'assets'),
         artboard: artboard,
         stateMachines: 'State Machine 1',
         layout: new Layout({

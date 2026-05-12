@@ -5,6 +5,7 @@ import { useAuthStore } from '../state/authStore';
 import { useEconomyStore } from '../state/economyStore';
 import { Check, X, Coins } from 'lucide-react';
 import { appConfig } from '../config/app';
+import { brandAssetUrls } from '../config/customization';
 
 export function ChessInviteModal() {
     const { multiplayerStatus, pendingInvite, acceptInvite, declineInvite } = useChessStore();
@@ -82,7 +83,7 @@ export function ChessInviteModal() {
             <div className="bg-slate-900 border border-white/10 rounded-2xl p-6 w-full max-w-sm shadow-2xl">
                 {/* Chess icon */}
                 <div className="w-20 h-20 mx-auto mb-4">
-                    <img src="/chess_logo.png" alt="Chess" className="w-full h-full object-contain" />
+                    <img src={brandAssetUrls.chessLogo} alt="Chess" className="w-full h-full object-contain" />
                 </div>
 
                 {/* Title */}
@@ -129,7 +130,7 @@ export function ChessInviteModal() {
                             </div>
                         ) : (
                             <div className="flex items-center justify-center gap-2">
-                                <img src="/coin.png" alt="" className="w-4 h-4" />
+                                <img src={brandAssetUrls.coinIcon} alt="" className="w-4 h-4" />
                                 <span>{gamePlayCost.cost} coins to play</span>
                             </div>
                         )}

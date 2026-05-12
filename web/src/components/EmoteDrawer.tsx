@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { R2_PATHS } from '../config/r2';
+import { resolveAssetUrl } from '../config/r2';
 
 type Emote = {
     id: string;
@@ -8,13 +8,13 @@ type Emote = {
 };
 
 const REACTIONS: Emote[] = [
-    { id: 'angry', src: `${R2_PATHS.emotes}/angry.png`, label: 'Angry' },
-    { id: 'cool', src: `${R2_PATHS.emotes}/cool.png`, label: 'Cool' },
-    { id: 'crying', src: `${R2_PATHS.emotes}/crying.png`, label: 'Crying' },
-    { id: 'evil', src: `${R2_PATHS.emotes}/evil.png`, label: 'Evil' },
-    { id: 'gross', src: `${R2_PATHS.emotes}/gross.png`, label: 'Gross' },
-    { id: 'laugh', src: `${R2_PATHS.emotes}/laugh.png`, label: 'Laugh' },
-    { id: 'sad', src: `${R2_PATHS.emotes}/sad.png`, label: 'Sad' },
+    { id: 'angry', src: resolveAssetUrl('angry.png', 'emotes'), label: 'Angry' },
+    { id: 'cool', src: resolveAssetUrl('cool.png', 'emotes'), label: 'Cool' },
+    { id: 'crying', src: resolveAssetUrl('crying.png', 'emotes'), label: 'Crying' },
+    { id: 'evil', src: resolveAssetUrl('evil.png', 'emotes'), label: 'Evil' },
+    { id: 'gross', src: resolveAssetUrl('gross.png', 'emotes'), label: 'Gross' },
+    { id: 'laugh', src: resolveAssetUrl('laugh.png', 'emotes'), label: 'Laugh' },
+    { id: 'sad', src: resolveAssetUrl('sad.png', 'emotes'), label: 'Sad' },
 ];
 
 const BODY_EMOTES: Emote[] = [

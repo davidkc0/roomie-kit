@@ -8,6 +8,7 @@ import roomieLogo from '../assets/roomie_logo_no_background.png';
 import { AvatarEditor } from '../components/AvatarEditor';
 import { type AvatarConfig, DEFAULT_AVATAR_CONFIG } from '../avatars/avatarTextures';
 import { appConfig, defaultAvatarUrl } from '../config/app';
+import { brandAssetUrls, getBrandAssetUrl } from '../config/customization';
 
 export default function Onboarding() {
     const { user, profile, refreshProfile } = useAuthStore();
@@ -15,6 +16,7 @@ export default function Onboarding() {
 
     // Keyboard Hook
     const { contentRef, containerStyle } = useKeyboardAdjust();
+    const logoUrl = getBrandAssetUrl('logo', roomieLogo);
 
     // Step 1: Username, Step 2: Avatar, Step 'invite': Invite Code, Step 3: Profile Photo, Step 4: Welcome
     const [step, setStep] = useState<1 | 2 | 'invite' | 3 | 4>(1);
@@ -201,7 +203,7 @@ export default function Onboarding() {
         >
             {step === 1 && (
                 <div className="w-full max-w-md space-y-6 rounded-xl bg-bg-elevated p-8 backdrop-blur-sm border border-border text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <img src={roomieLogo} alt="Roomie" className="h-16 w-auto mx-auto mb-4" />
+                    <img src={logoUrl} alt={appConfig.appName} className="h-16 w-auto mx-auto mb-4" />
                     <h1 className="text-2xl font-bold text-white">
                         Welcome!
                     </h1>
@@ -273,7 +275,7 @@ export default function Onboarding() {
 
             {step === 'invite' && appConfig.features.invites && (
                 <div className="w-full max-w-md space-y-6 rounded-xl bg-bg-elevated p-8 backdrop-blur-sm border border-border text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <img src={roomieLogo} alt="Roomie" className="h-12 w-auto mx-auto mb-4" />
+                    <img src={logoUrl} alt={appConfig.appName} className="h-12 w-auto mx-auto mb-4" />
                     <h1 className="text-2xl font-bold text-white">Have an invite code?</h1>
                     <p className="text-text-tertiary text-sm">
                         Enter a friend's code for instant access + bonus coins.
@@ -333,7 +335,7 @@ export default function Onboarding() {
 
             {step === 3 && (
                 <div className="w-full max-w-md space-y-6 rounded-xl bg-bg-elevated p-8 backdrop-blur-sm border border-border text-center animate-in fade-in slide-in-from-bottom-4 duration-500">
-                    <img src={roomieLogo} alt="Roomie" className="h-12 w-auto mx-auto mb-4" />
+                    <img src={logoUrl} alt={appConfig.appName} className="h-12 w-auto mx-auto mb-4" />
                     <h1 className="text-2xl font-bold text-white">Add a Profile Photo</h1>
                     <p className="text-text-tertiary">Show your friends who you are.</p>
 
@@ -371,7 +373,7 @@ export default function Onboarding() {
                     {/* Background Glow */}
                     <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
 
-                    <img src={roomieLogo} alt="Roomie" className="h-16 w-auto mx-auto mb-2 relative z-10" />
+                    <img src={logoUrl} alt={appConfig.appName} className="h-16 w-auto mx-auto mb-2 relative z-10" />
 
                     <div className="relative z-10">
                         <h1 className="text-2xl font-bold text-white mb-2">You're All Set! 🎉</h1>
@@ -387,7 +389,7 @@ export default function Onboarding() {
                         <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 bg-yellow-500/20 blur-2xl rounded-full pointer-events-none"></div>
 
                         <div className="mb-4 relative">
-                            <img src="/coin.png" alt="Coins" className="w-24 h-24 object-contain mx-auto drop-shadow-[0_4px_10px_rgba(0,0,0,0.3)] animate-bounce" />
+                            <img src={brandAssetUrls.coinIcon} alt="Coins" className="w-24 h-24 object-contain mx-auto drop-shadow-[0_4px_10px_rgba(0,0,0,0.3)] animate-bounce" />
                         </div>
 
                         <div className="relative">

@@ -1,5 +1,6 @@
 import { useEconomyStore } from '../state/economyStore';
 import { useState, useEffect } from 'react';
+import { brandAssetUrls } from '../config/customization';
 
 const COIN_PACKAGES = [
     { coins: 100, usd: 0.99 },
@@ -79,7 +80,7 @@ export function PurchaseDrawer() {
                 <div className="grid grid-cols-2 gap-4 p-4 bg-bg-elevated shrink-0">
                     <div className="text-center">
                         <div className="flex justify-center mb-1">
-                            <img src="/coin.png" alt="Coins" className="w-8 h-8 object-contain" />
+                            <img src={brandAssetUrls.coinIcon} alt="Coins" className="w-8 h-8 object-contain" />
                         </div>
                         <div className="text-2xl font-bold text-yellow-400">{coinBalance.toLocaleString()}</div>
                         <div className="text-xs text-slate-400 uppercase tracking-wider">Coins</div>
@@ -127,7 +128,7 @@ export function PurchaseDrawer() {
                                     className="w-full bg-bg-elevated hover:bg-bg-elevated/80 disabled:opacity-50 rounded-xl p-4 flex items-center justify-between transition-colors border border-border hover:border-yellow-500 group"
                                 >
                                     <div className="flex items-center gap-3">
-                                        <img src="/coin.png" alt="Coin" className="w-8 h-8 object-contain group-hover:scale-110 transition-transform" />
+                                        <img src={brandAssetUrls.coinIcon} alt="Coin" className="w-8 h-8 object-contain group-hover:scale-110 transition-transform" />
                                         <div className="text-left">
                                             <div className="font-bold text-lg text-white">
                                                 {pkg.coins.toLocaleString()}

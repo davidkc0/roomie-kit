@@ -3,7 +3,7 @@ import { SceneLoader } from '@babylonjs/core/Loading';
 import { Vector3 } from '@babylonjs/core';
 import '@babylonjs/loaders';
 import { useScene } from './scene';
-import { R2_PATHS } from '../config/r2';
+import { resolveAssetUrl } from '../config/r2';
 
 type LoungeEnvironmentProps = {
     onSpawnPointFound?: (position: Vector3) => void;
@@ -33,10 +33,10 @@ export function LoungeEnvironment({ onSpawnPointFound }: LoungeEnvironmentProps)
 
         const loadLounge = async () => {
             try {
-                const loungeUrl = `${R2_PATHS.rooms}/lounge5.glb`;
+                const loungeUrl = resolveAssetUrl('lounge5.glb', 'rooms');
                 console.log('[LoungeEnvironment] Loading lounge from:', loungeUrl);
 
-                const result = await SceneLoader.ImportMeshAsync('', `${R2_PATHS.rooms}/`, 'lounge5.glb', scene);
+                const result = await SceneLoader.ImportMeshAsync('', '', resolveAssetUrl('lounge5.glb', 'rooms'), scene);
 
                 // Log ALL mesh names explicitly
                 console.log('[LoungeEnvironment] All mesh names:');
@@ -89,5 +89,4 @@ export function LoungeEnvironment({ onSpawnPointFound }: LoungeEnvironmentProps)
 
     return null;
 }
-
 

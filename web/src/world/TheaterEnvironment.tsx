@@ -3,7 +3,7 @@ import { SceneLoader } from '@babylonjs/core/Loading';
 import { Vector3 } from '@babylonjs/core';
 import '@babylonjs/loaders';
 import { useScene } from './scene';
-import { R2_PATHS } from '../config/r2';
+import { resolveAssetUrl } from '../config/r2';
 
 type TheaterEnvironmentProps = {
     onSpawnPointFound?: (position: Vector3) => void;
@@ -35,7 +35,7 @@ export function TheaterEnvironment({ onSpawnPointFound }: TheaterEnvironmentProp
             try {
                 console.log('[TheaterEnvironment] Loading theater2.glb...');
 
-                const result = await SceneLoader.ImportMeshAsync('', `${R2_PATHS.rooms}/`, 'theater2.glb', scene);
+                const result = await SceneLoader.ImportMeshAsync('', '', resolveAssetUrl('theater2.glb', 'rooms'), scene);
 
                 // Log ALL mesh names explicitly
                 console.log('[TheaterEnvironment] All mesh names:');

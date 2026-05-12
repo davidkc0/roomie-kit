@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useScene } from '../scene';
 import { SceneLoader, AbstractMesh, Vector3, PointerEventTypes, Matrix, Quaternion } from '@babylonjs/core';
 import { supabase } from '../../lib/supabase';
-import { R2_PATHS } from '../../config/r2';
+import { resolveAssetUrl } from '../../config/r2';
 // Room boundary: walls at ±7.5 (ROOM_SIZE=15), with 2m inset so large items don't clip through
 const HALF_ROOM = 7.5;
 const WALL_INSET = 1.0;
@@ -72,7 +72,7 @@ export function PlacementGhost({ selectedItemId, isEditMode, pendingPlacement, o
 
         loadedItemIdRef.current = selectedItemId;
 
-        SceneLoader.ImportMeshAsync('', `${R2_PATHS.furniture}/${modelUrl}?v=${Date.now()}`, undefined, scene)
+        SceneLoader.ImportMeshAsync('', `${resolveAssetUrl(modelUrl, 'furniture')}?v=${Date.now()}`, undefined, scene)
             .then((result) => {
                 const root = result.meshes[0];
                 if (!root) return;
