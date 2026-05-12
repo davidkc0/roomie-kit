@@ -149,68 +149,71 @@ export default function SearchPage() {
     return (
         <div className="h-[100dvh] bg-bg-base text-white flex flex-col animate-fade-in">
             {/* Header */}
-            <div className="sticky top-0 z-10 bg-bg-base/80 backdrop-blur-md border-b border-border/50 px-4 py-3 flex items-center gap-3">
-                <button onClick={() => navigate(-1)} className="p-2 -ml-2 text-text-tertiary hover:text-white transition-colors">
-                    <ArrowLeft className="w-6 h-6" />
-                </button>
-                <div className="flex-1 relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-tertiary" />
-                    <input
-                        autoFocus
-                        type="text"
-                        placeholder="Search users..."
-                        value={query}
-                        onChange={e => setQuery(e.target.value)}
-                        className="w-full bg-bg-elevated rounded-xl py-3 pl-10 pr-10 text-white focus:outline-none focus:ring-1 focus:ring-brand-primary/50 transition placeholder:text-text-disabled"
-                    />
-                    {query && (
-                        <button
-                            onClick={clearSearch}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-text-tertiary hover:text-white"
-                        >
-                            <X className="w-4 h-4" />
-                        </button>
-                    )}
+            <div className="sticky top-0 z-10 bg-bg-base/80 backdrop-blur-md border-b border-border/50 px-4 py-3">
+                <div className="mx-auto flex w-full max-w-2xl items-center gap-3">
+                    <button onClick={() => navigate(-1)} className="p-2 -ml-2 text-text-tertiary hover:text-white transition-colors">
+                        <ArrowLeft className="w-6 h-6" />
+                    </button>
+                    <div className="flex-1 relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-tertiary" />
+                        <input
+                            autoFocus
+                            type="text"
+                            placeholder="Search users..."
+                            value={query}
+                            onChange={e => setQuery(e.target.value)}
+                            className="w-full bg-bg-elevated rounded-xl py-3 pl-10 pr-10 text-white focus:outline-none focus:ring-1 focus:ring-brand-primary/50 transition placeholder:text-text-disabled"
+                        />
+                        {query && (
+                            <button
+                                onClick={clearSearch}
+                                className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-text-tertiary hover:text-white"
+                            >
+                                <X className="w-4 h-4" />
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
 
             {/* Results — scrollable, clears keyboard + tab bar */}
-            <div className="flex-1 overflow-y-auto overscroll-contain p-2 space-y-1 pb-28">
-                {loading && results.length === 0 && (
-                    <div className="py-10 text-center text-text-tertiary flex flex-col items-center">
-                        <Loader2 className="w-8 h-8 animate-spin mb-2" />
-                        <span>Searching...</span>
-                    </div>
-                )}
-
-                {!loading && query && results.length === 0 && (
-                    <div className="py-20 text-center text-text-disabled flex flex-col items-center">
-                        <User className="w-16 h-16 mb-4 opacity-20" />
-                        <p>No users found for "{query}"</p>
-                    </div>
-                )}
-
-                {results.map(user => (
-                    <div
-                        key={user.id}
-                        onClick={() => setSelectedProfileId(user.id)}
-                        className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 active:bg-white/10 transition cursor-pointer"
-                    >
-                        {/* User Info */}
-                        <div className="flex items-center gap-3 min-w-0 flex-1">
-                            <div className="w-12 h-12 rounded-full bg-bg-surface overflow-hidden border border-white/10 flex-shrink-0">
-                                <img
-                                    src={user.profile_image_url || user.avatar_headshot_url || `https://api.dicebear.com/7.x/initials/svg?seed=${user.username}`}
-                                    alt={user.username}
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                            <div className="min-w-0">
-                                <h3 className="font-bold text-base truncate">{user.username}</h3>
-                                {user.bio && <p className="text-xs text-text-tertiary truncate">{user.bio}</p>}
-                                {!user.bio && <p className="text-xs text-text-disabled truncate">@{user.username.toLowerCase()}</p>}
-                            </div>
+            <div className="flex-1 overflow-y-auto overscroll-contain">
+                <div className="mx-auto w-full max-w-2xl p-2 space-y-1 pb-28">
+                    {loading && results.length === 0 && (
+                        <div className="py-10 text-center text-text-tertiary flex flex-col items-center">
+                            <Loader2 className="w-8 h-8 animate-spin mb-2" />
+                            <span>Searching...</span>
                         </div>
+                    )}
+
+                    {!loading && query && results.length === 0 && (
+                        <div className="py-20 text-center text-text-disabled flex flex-col items-center">
+                            <User className="w-16 h-16 mb-4 opacity-20" />
+                            <p>No users found for "{query}"</p>
+                        </div>
+                    )}
+
+                    {results.map(user => (
+                        <div
+                            key={user.id}
+                            onClick={() => setSelectedProfileId(user.id)}
+                            className="flex items-center justify-between p-3 rounded-xl hover:bg-white/5 active:bg-white/10 transition cursor-pointer"
+                        >
+                            {/* User Info */}
+                            <div className="flex items-center gap-3 min-w-0 flex-1">
+                                <div className="w-12 h-12 rounded-full bg-bg-surface overflow-hidden border border-white/10 flex-shrink-0">
+                                    <img
+                                        src={user.profile_image_url || user.avatar_headshot_url || `https://api.dicebear.com/7.x/initials/svg?seed=${user.username}`}
+                                        alt={user.username}
+                                        className="w-full h-full object-cover"
+                                    />
+                                </div>
+                                <div className="min-w-0">
+                                    <h3 className="font-bold text-base truncate">{user.username}</h3>
+                                    {user.bio && <p className="text-xs text-text-tertiary truncate">{user.bio}</p>}
+                                    {!user.bio && <p className="text-xs text-text-disabled truncate">@{user.username.toLowerCase()}</p>}
+                                </div>
+                            </div>
 
                         {/* Action Button */}
                         <div className="ml-3 flex-shrink-0">
@@ -251,8 +254,9 @@ export default function SearchPage() {
                                 </button>
                             )}
                         </div>
-                    </div>
-                ))}
+                        </div>
+                    ))}
+                </div>
             </div>
 
             <UserProfileSheet

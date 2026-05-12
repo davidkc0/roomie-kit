@@ -165,13 +165,15 @@ export default function FriendsPage() {
         <div className={`min-h-screen bg-bg-base text-white pb-20 ${isExiting ? 'animate-slide-out-right' : 'animate-slide-in-right'}`}>
             {/* Header */}
             <div className="sticky top-0 z-10 bg-bg-base/80 backdrop-blur-md border-b border-border/50 px-4 py-4 flex items-center justify-center relative">
-                <button onClick={handleBack} className="absolute left-4 p-2 -ml-2 text-text-tertiary hover:text-white transition-colors">
-                    <ArrowLeft className="w-6 h-6" />
-                </button>
-                <h1 className="text-xl font-bold">My Friends ({friends.length})</h1>
+                <div className="relative mx-auto flex w-full max-w-2xl items-center justify-center">
+                    <button onClick={handleBack} className="absolute left-0 p-2 -ml-2 text-text-tertiary hover:text-white transition-colors">
+                        <ArrowLeft className="w-6 h-6" />
+                    </button>
+                    <h1 className="text-xl font-bold">My Friends ({friends.length})</h1>
+                </div>
             </div>
 
-            <div className="p-4 space-y-4 animate-fade-in">
+            <div className="mx-auto w-full max-w-2xl p-4 space-y-4 animate-fade-in">
                 {/* Search */}
                 <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-tertiary" />

@@ -192,16 +192,18 @@ export default function NotificationsPage() {
             <div
                 className="sticky top-0 z-10 bg-bg-base/80 backdrop-blur-md border-b border-border px-4 py-4 flex items-center justify-center relative"
             >
-                <button
-                    onClick={handleBack}
-                    className="absolute left-4 p-2 -ml-2 text-text-secondary hover:text-white transition-colors"
-                >
-                    <ArrowLeft className="w-6 h-6" />
-                </button>
-                <h1 className="text-xl font-bold">Notifications</h1>
+                <div className="relative mx-auto flex w-full max-w-2xl items-center justify-center">
+                    <button
+                        onClick={handleBack}
+                        className="absolute left-0 p-2 -ml-2 text-text-secondary hover:text-white transition-colors"
+                    >
+                        <ArrowLeft className="w-6 h-6" />
+                    </button>
+                    <h1 className="text-xl font-bold">Notifications</h1>
+                </div>
             </div>
 
-            <div className="p-4 space-y-4">
+            <div className="mx-auto w-full max-w-2xl p-4 space-y-4">
                 {loading ? (
                     <div className="text-center py-10 text-text-tertiary">Loading...</div>
                 ) : notifications.length === 0 ? (

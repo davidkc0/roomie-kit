@@ -289,11 +289,16 @@ npm --prefix web run cap:copy
 
 ## Docs
 
+Full public docs are designed for GitBook GitHub Sync and will be published at [docs.roomiekit.io](https://docs.roomiekit.io).
+
 - [Supabase setup](docs/supabase.md)
 - [Backend modules](docs/backend-modules.md)
 - [Media and streaming](docs/media.md)
 - [Customization](docs/customization.md)
 - [Asset folders and release strategy](docs/assets.md)
+- [Managed Hosting](docs/managed-hosting/overview.md)
+- [CLI onboarding](docs/managed-hosting/onboarding.md)
+- [GitBook publishing](docs/reference/gitbook-publishing.md)
 - [Mobile setup](docs/mobile.md)
 - [Mobile smoke checks](docs/mobile-smoke.md)
 - [Release checklist](docs/release.md)

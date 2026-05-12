@@ -189,57 +189,59 @@ export default function ProfilePage() {
     const displayImage = profile.profile_image_url || avatarHeadshot;
 
     return (
-        <div className="h-screen bg-bg-base text-white pb-24 overflow-y-auto relative">
+        <div className="h-[100dvh] bg-bg-base text-white pb-24 overflow-y-auto relative">
             {/* Header - no bottom border */}
             <div
-                className="sticky top-0 z-10 bg-bg-base/80 backdrop-blur-md px-4 py-4 flex items-center justify-between"
+                className="sticky top-0 z-10 bg-bg-base/80 backdrop-blur-md px-4 py-4"
             >
-                {isEditing ? (
-                    <button onClick={() => setIsEditing(false)} className="p-2 -ml-2 text-slate-400">
-                        <X className="w-5 h-5" />
-                    </button>
-                ) : appConfig.features.invites && profile.account_status === 'active' ? (
-                    <button
-                        onClick={() => setShowInviteModal(true)}
-                        className="px-4 py-1.5 bg-white text-slate-900 font-bold text-sm rounded-lg border-b-[3px] border-slate-200 hover:bg-slate-50 active:border-b-0 active:translate-y-0.5 active:mt-0.5 shadow-md shadow-black/10 transition-all"
-                    >
-                        Invite
-                    </button>
-                ) : (
-                    <div className="w-9" />
-                )}
-
-                <h1 className="absolute left-0 right-0 text-center text-lg font-bold pointer-events-none">
-                    {isEditing ? 'Edit Profile' : ''}
-                </h1>
-
-                {isEditing ? (
-                    <button
-                        onClick={handleSaveProfile}
-                        disabled={saving}
-                        className="px-4 py-1.5 bg-white text-slate-900 font-bold text-sm rounded-lg border-b-[3px] border-slate-200 hover:bg-slate-50 active:border-b-0 active:translate-y-0.5 active:mt-0.5 shadow-md shadow-black/10 transition-all disabled:opacity-50 disabled:active:border-b-[3px] disabled:active:translate-y-0 disabled:active:mt-0 flex items-center justify-center min-w-[70px]"
-                    >
-                        {saving ? (
-                            <div className="w-4 h-4 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
-                        ) : (
-                            'Save'
-                        )}
-                    </button>
-                ) : (
-                    <div className="flex items-center gap-2">
-                        {appConfig.features.economy && <StreakBadge />}
-                        {appConfig.features.economy && <CoinBalanceButton variant="profile" />}
-                        <button
-                            onClick={() => navigate('/settings')}
-                            className="p-2 text-white hover:text-slate-300 transition-colors"
-                        >
-                            <Settings className="w-6 h-6" />
+                <div className="relative mx-auto flex w-full max-w-xl items-center justify-between">
+                    {isEditing ? (
+                        <button onClick={() => setIsEditing(false)} className="p-2 -ml-2 text-slate-400">
+                            <X className="w-5 h-5" />
                         </button>
-                    </div>
-                )}
+                    ) : appConfig.features.invites && profile.account_status === 'active' ? (
+                        <button
+                            onClick={() => setShowInviteModal(true)}
+                            className="px-4 py-1.5 bg-white text-slate-900 font-bold text-sm rounded-lg border-b-[3px] border-slate-200 hover:bg-slate-50 active:border-b-0 active:translate-y-0.5 active:mt-0.5 shadow-md shadow-black/10 transition-all"
+                        >
+                            Invite
+                        </button>
+                    ) : (
+                        <div className="w-9" />
+                    )}
+
+                    <h1 className="absolute left-0 right-0 text-center text-lg font-bold pointer-events-none">
+                        {isEditing ? 'Edit Profile' : ''}
+                    </h1>
+
+                    {isEditing ? (
+                        <button
+                            onClick={handleSaveProfile}
+                            disabled={saving}
+                            className="px-4 py-1.5 bg-white text-slate-900 font-bold text-sm rounded-lg border-b-[3px] border-slate-200 hover:bg-slate-50 active:border-b-0 active:translate-y-0.5 active:mt-0.5 shadow-md shadow-black/10 transition-all disabled:opacity-50 disabled:active:border-b-[3px] disabled:active:translate-y-0 disabled:active:mt-0 flex items-center justify-center min-w-[70px]"
+                        >
+                            {saving ? (
+                                <div className="w-4 h-4 border-2 border-slate-900 border-t-transparent rounded-full animate-spin" />
+                            ) : (
+                                'Save'
+                            )}
+                        </button>
+                    ) : (
+                        <div className="flex items-center gap-2">
+                            {appConfig.features.economy && <StreakBadge />}
+                            {appConfig.features.economy && <CoinBalanceButton variant="profile" />}
+                            <button
+                                onClick={() => navigate('/settings')}
+                                className="p-2 text-white hover:text-slate-300 transition-colors"
+                            >
+                                <Settings className="w-6 h-6" />
+                            </button>
+                        </div>
+                    )}
+                </div>
             </div>
 
-            <div className="px-4 py-8 flex flex-col animate-fade-in">
+            <div className="mx-auto flex w-full max-w-xl flex-col px-4 py-6 sm:py-8 animate-fade-in">
 
                 {/* Profile Header (Photo + Username) - Centered */}
                 <div className="flex flex-col items-center gap-4 mb-6 relative">
@@ -318,15 +320,15 @@ export default function ProfilePage() {
 
                 {/* Action Buttons */}
                 {!isEditing && (
-                    <div className="flex gap-3 w-full mb-8">
+                    <div className="grid w-full max-w-md grid-cols-2 gap-3 self-center mb-8">
                         <GamePrimaryButton
-                            className="flex-1 !py-2 !rounded-lg"
+                            className="w-full !py-2 !rounded-lg"
                             onClick={() => navigate('/avatar/edit', { state: { fromProfile: true } })}
                         >
                             Edit Avatar
                         </GamePrimaryButton>
                         <GamePrimaryButton
-                            className="flex-1 !py-2 !rounded-lg"
+                            className="w-full !py-2 !rounded-lg"
                             onClick={startEditing}
                         >
                             Edit Profile
@@ -415,45 +417,47 @@ export default function ProfilePage() {
                     />
 
                     {/* Drawer */}
-                    <div className="fixed bottom-0 left-0 right-0 bg-bg-surface rounded-t-2xl z-[70] p-6 pb-12 animate-slide-up border-t border-border">
-                        <div className="w-12 h-1.5 bg-bg-elevated rounded-full mx-auto mb-6" />
+                    <div className="fixed inset-x-0 bottom-0 z-[70] px-3 pointer-events-none">
+                        <div className="mx-auto w-full max-w-md bg-bg-surface rounded-t-2xl p-6 pb-12 animate-slide-up border-t border-border pointer-events-auto shadow-2xl">
+                            <div className="w-12 h-1.5 bg-bg-elevated rounded-full mx-auto mb-6" />
 
-                        <div className="space-y-2">
-                            <button
-                                onClick={() => handleTakePhoto(CameraSource.Photos)}
-                                className="w-full flex items-center gap-3 p-4 bg-bg-elevated hover:bg-bg-elevated/80 rounded-xl transition text-left"
-                            >
-                                <Image className="w-6 h-6 text-white" />
-                                <span className="font-medium text-white">Choose from library</span>
-                            </button>
-
-                            <button
-                                onClick={() => handleTakePhoto(CameraSource.Camera)}
-                                className="w-full flex items-center gap-3 p-4 bg-bg-elevated hover:bg-bg-elevated/80 rounded-xl transition text-left"
-                            >
-                                <Camera className="w-6 h-6 text-white" />
-                                <span className="font-medium text-white">Take Photo</span>
-                            </button>
-
-                            {isPhotoModeActive && (
+                            <div className="space-y-2">
                                 <button
-                                    onClick={handleRemoveCurrentPhoto}
-                                    className="w-full flex items-center gap-3 p-4 bg-bg-elevated hover:bg-bg-elevated/80 rounded-xl transition text-left text-red-400"
+                                    onClick={() => handleTakePhoto(CameraSource.Photos)}
+                                    className="w-full flex items-center gap-3 p-4 bg-bg-elevated hover:bg-bg-elevated/80 rounded-xl transition text-left"
                                 >
-                                    <Trash2 className="w-6 h-6" />
-                                    <span className="font-medium">Remove current picture</span>
+                                    <Image className="w-6 h-6 text-white" />
+                                    <span className="font-medium text-white">Choose from library</span>
                                 </button>
-                            )}
 
-                            <div className="border-t border-border my-2" />
+                                <button
+                                    onClick={() => handleTakePhoto(CameraSource.Camera)}
+                                    className="w-full flex items-center gap-3 p-4 bg-bg-elevated hover:bg-bg-elevated/80 rounded-xl transition text-left"
+                                >
+                                    <Camera className="w-6 h-6 text-white" />
+                                    <span className="font-medium text-white">Take Photo</span>
+                                </button>
 
-                            <button
-                                onClick={() => setIsAvatarEditorOpen(true)}
-                                className="w-full flex items-center gap-3 p-4 bg-bg-elevated hover:bg-bg-elevated/80 rounded-xl transition text-left"
-                            >
-                                <Sparkles className="w-6 h-6 text-brand-primary" />
-                                <span className="font-medium text-white">Edit Avatar</span>
-                            </button>
+                                {isPhotoModeActive && (
+                                    <button
+                                        onClick={handleRemoveCurrentPhoto}
+                                        className="w-full flex items-center gap-3 p-4 bg-bg-elevated hover:bg-bg-elevated/80 rounded-xl transition text-left text-red-400"
+                                    >
+                                        <Trash2 className="w-6 h-6" />
+                                        <span className="font-medium">Remove current picture</span>
+                                    </button>
+                                )}
+
+                                <div className="border-t border-border my-2" />
+
+                                <button
+                                    onClick={() => setIsAvatarEditorOpen(true)}
+                                    className="w-full flex items-center gap-3 p-4 bg-bg-elevated hover:bg-bg-elevated/80 rounded-xl transition text-left"
+                                >
+                                    <Sparkles className="w-6 h-6 text-brand-primary" />
+                                    <span className="font-medium text-white">Edit Avatar</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </>

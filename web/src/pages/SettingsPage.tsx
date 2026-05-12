@@ -186,18 +186,20 @@ export default function SettingsPage() {
     ];
 
     return (
-        <div className={`h-screen bg-bg-base text-white flex flex-col ${isExiting ? 'animate-slide-out-right' : 'animate-slide-in-right'}`}>
+        <div className={`h-[100dvh] bg-bg-base text-white flex flex-col ${isExiting ? 'animate-slide-out-right' : 'animate-slide-in-right'}`}>
             {/* Header — fixed, never moves */}
             <div className="flex-none z-10 bg-bg-base border-b border-border/50 px-4 py-4 flex items-center">
-                <button onClick={handleBack} className="p-2 -ml-2 text-text-tertiary">
-                    <ChevronLeft className="w-6 h-6" />
-                </button>
-                <h1 className="text-lg font-bold flex-1 text-center pr-8">Settings</h1>
+                <div className="mx-auto flex w-full max-w-2xl items-center">
+                    <button onClick={handleBack} className="p-2 -ml-2 text-text-tertiary">
+                        <ChevronLeft className="w-6 h-6" />
+                    </button>
+                    <h1 className="text-lg font-bold flex-1 text-center pr-8">Settings</h1>
+                </div>
             </div>
 
             {/* Scrollable content */}
             <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-6">
-                <div className="space-y-4">
+                <div className="mx-auto w-full max-w-2xl space-y-4">
                     {/* Notifications Section */}
                     <div className="bg-bg-elevated/50 rounded-xl overflow-hidden">
                         <div className="px-4 py-3 flex items-center gap-3 border-b border-border/50">

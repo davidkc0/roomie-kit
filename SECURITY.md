@@ -6,7 +6,7 @@ This starter tracks the current `main` branch. Security fixes should target `mai
 
 ## Reporting A Vulnerability
 
-Do not open a public issue for secrets, auth bypasses, data exposure, or payment bugs. Email the maintainer listed for your fork, or use GitHub private vulnerability reporting if enabled.
+Do not open a public issue for secrets, auth bypasses, data exposure, or payment bugs. Email `support@roomiekit.io`, email the maintainer listed for your fork, or use GitHub private vulnerability reporting if enabled.
 
 ## Secret Handling
 

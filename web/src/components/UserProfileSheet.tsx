@@ -123,11 +123,11 @@ export function UserProfileSheet({ profileId, onClose }: UserProfileSheetProps) 
     const hasPhoto = !!playerPhoto;
 
     return (
-        <div className={`fixed inset-0 z-[100] flex flex-col justify-end transition-opacity duration-300 ${closing ? 'opacity-0' : 'opacity-100'}`}>
+        <div className={`fixed inset-0 z-[100] flex flex-col justify-end px-3 transition-opacity duration-300 ${closing ? 'opacity-0' : 'opacity-100'}`}>
             <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={handleClose} />
 
             <div
-                className={`relative w-full bg-bg-surface border-t border-border rounded-t-3xl shadow-2xl p-6 pb-12 transform transition-transform duration-300 ${closing ? 'translate-y-full' : 'translate-y-0'} ${loading ? 'min-h-[300px]' : ''}`}
+                className={`relative mx-auto w-full max-w-md bg-bg-surface border-t border-border rounded-t-3xl shadow-2xl p-6 pb-12 transform transition-transform duration-300 ${closing ? 'translate-y-full' : 'translate-y-0'} ${loading ? 'min-h-[300px]' : ''}`}
                 onClick={e => e.stopPropagation()}
             >
                 <div className="absolute top-3 left-1/2 -translate-x-1/2 w-12 h-1.5 bg-white/20 rounded-full" />
