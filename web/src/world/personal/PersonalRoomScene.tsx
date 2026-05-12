@@ -3,7 +3,7 @@ import { useScene } from '../scene';
 import { Vector3, Color3, StandardMaterial, Texture, MeshBuilder } from '@babylonjs/core';
 import { Furniture } from '../Furniture';
 import { PlacementGhost } from './PlacementGhost';
-import { R2_PATHS } from '../../config/r2';
+import { resolveAssetUrl } from '../../config/r2';
 
 type PersonalRoomSceneProps = {
     roomData: any; // Type strictly later
@@ -18,6 +18,10 @@ type PersonalRoomSceneProps = {
 
 // Grid size constant
 const ROOM_SIZE = 15; // 15x15m
+
+function withCacheBuster(url: string): string {
+    return `${url}${url.includes('?') ? '&' : '?'}v=5`;
+}
 
 export function PersonalRoomScene({
     roomData,
@@ -86,9 +90,7 @@ export function PersonalRoomScene({
                 // Remove specular to prevent glare in edit mode
                 material.specularColor = new Color3(0, 0, 0);
                 if (roomData.floor_texture_url) {
-                    const texUrl = roomData.floor_texture_url.startsWith('http')
-                        ? roomData.floor_texture_url
-                        : `${R2_PATHS.floor}/${roomData.floor_texture_url}`;
+                    const texUrl = resolveAssetUrl(roomData.floor_texture_url, 'floor');
 
                     // Use standard texture load for local/data/blob, fetch for R2
                     if (texUrl.includes('r2.dev')) {
@@ -146,9 +148,7 @@ export function PersonalRoomScene({
             wallMat.specularColor = new Color3(0, 0, 0); // No glare
 
             if (roomData.wall_texture_url) {
-                const wallTexUrl = roomData.wall_texture_url.startsWith('http')
-                    ? roomData.wall_texture_url
-                    : `${R2_PATHS.wall}/${roomData.wall_texture_url}`;
+                const wallTexUrl = resolveAssetUrl(roomData.wall_texture_url, 'wall');
 
                 loadTexture(wallTexUrl, wallMat, true);
             } else {
@@ -225,7 +225,7 @@ export function PersonalRoomScene({
                 return (
                     <Furniture
                         key={item.instance_id}
-                        modelPath={`${R2_PATHS.furniture}/${item.model_url}?v=5`}
+                        modelPath={withCacheBuster(resolveAssetUrl(item.model_url, 'furniture'))}
                         modelName={item.item_id}
                         position={new Vector3(pos.x, pos.y, pos.z)}
                         rotation={new Vector3(0, item.rotation?.y || 0, 0)}

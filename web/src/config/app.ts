@@ -3,7 +3,7 @@ import { Capacitor } from '@capacitor/core';
 const env = import.meta.env;
 
 function trimTrailingSlash(value: string): string {
-    return value.replace(/\/+$/, '');
+    return value.trim().replace(/\/+$/, '');
 }
 
 function browserOrigin(): string {

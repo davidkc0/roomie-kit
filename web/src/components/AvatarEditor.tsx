@@ -26,7 +26,7 @@ import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import '@babylonjs/loaders';
 import { X, Check, User, Shirt, Footprints, Palette, Scissors, Star, Lock } from 'lucide-react';
 import { CoinBalanceButton } from './CoinBalanceButton';
-import { R2_PATHS } from '../config/r2';
+import { DEFAULT_PROFILE_IMAGE_URL, R2_PATHS, resolveAssetUrl } from '../config/r2';
 import { type AvatarConfig, DEFAULT_AVATAR_CONFIG, applyAvatarTextures } from '../avatars/avatarTextures';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../state/authStore';
@@ -67,6 +67,8 @@ const CATEGORY_ICONS: Record<Category, typeof User> = {
 };
 
 const CATEGORIES: Category[] = ['body', 'hair', 'outfit', 'shoes', 'skin', 'costume'];
+
+const avatarOptionThumbnailUrl = (url: string) => resolveAssetUrl(url) || DEFAULT_PROFILE_IMAGE_URL;
 
 // Hair color display mapping
 const HAIR_COLORS: Record<string, string> = {
@@ -634,11 +636,11 @@ export function AvatarEditor({ initialConfig, onSave, onClose }: AvatarEditorPro
                                             {/* Thumbnail area */}
                                             <div className="relative aspect-square rounded-t-xl overflow-hidden flex items-center justify-center bg-white/[0.02]">
                                                 <img
-                                                    src={option.thumbnail_url}
+                                                    src={avatarOptionThumbnailUrl(option.thumbnail_url)}
                                                     alt={option.display_name}
                                                     className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-200 ${isLocked ? 'grayscale' : ''}`}
                                                     onError={(e) => {
-                                                        (e.target as HTMLImageElement).style.display = 'none';
+                                                        (e.target as HTMLImageElement).src = DEFAULT_PROFILE_IMAGE_URL;
                                                     }}
                                                 />
 
@@ -706,9 +708,12 @@ export function AvatarEditor({ initialConfig, onSave, onClose }: AvatarEditorPro
                         {purchaseConfirm.thumbnail_url && (
                             <div className="flex justify-center mb-4">
                                 <img
-                                    src={purchaseConfirm.thumbnail_url}
+                                    src={avatarOptionThumbnailUrl(purchaseConfirm.thumbnail_url)}
                                     alt={purchaseConfirm.display_name}
                                     className="w-40 h-40 object-cover rounded-2xl border border-white/10"
+                                    onError={(e) => {
+                                        (e.target as HTMLImageElement).src = DEFAULT_PROFILE_IMAGE_URL;
+                                    }}
                                 />
                             </div>
                         )}

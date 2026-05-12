@@ -6,14 +6,17 @@ export async function getAgoraRtcToken(
     channelName: string,
     uid?: string | number,
     role: AgoraRole = 'publisher'
-): Promise<string | null> {
+): Promise<string> {
     const { data: { session } } = await supabase.auth.getSession();
-    const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-    const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+    const supabaseUrl = String(import.meta.env.VITE_SUPABASE_URL || '').trim();
+    const supabaseAnonKey = String(import.meta.env.VITE_SUPABASE_ANON_KEY || '').trim();
 
     if (!supabaseUrl || !supabaseAnonKey) {
-        console.warn('[AgoraToken] Missing Supabase env; joining without token.');
-        return null;
+        throw new Error('Missing Supabase env for Agora token service.');
+    }
+
+    if (!session?.access_token) {
+        throw new Error('Missing Supabase session for Agora token service.');
     }
 
     try {
@@ -29,14 +32,17 @@ export async function getAgoraRtcToken(
 
         if (!response.ok) {
             const detail = await response.text();
-            console.warn('[AgoraToken] Token endpoint unavailable; joining without token.', detail);
-            return null;
+            throw new Error(`Agora token endpoint failed (${response.status}): ${detail}`);
         }
 
         const payload = await response.json();
-        return payload.token || null;
+        if (!payload.token) {
+            throw new Error('Agora token endpoint returned no token.');
+        }
+
+        return payload.token;
     } catch (error) {
-        console.warn('[AgoraToken] Token request failed; joining without token.', error);
-        return null;
+        console.error('[AgoraToken] Token request failed.', error);
+        throw error;
     }
 }

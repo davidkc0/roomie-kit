@@ -11,6 +11,7 @@ import { useRoomPresence } from '../hooks/useRoomPresence';
 import { PersonalRoomCard } from '../components/PersonalRoomCard';
 import { useOrientationLock } from '../hooks/useOrientationLock';
 import { appConfig } from '../config/app';
+import { DEFAULT_PROFILE_IMAGE_URL, resolveAssetUrl } from '../config/r2';
 
 console.log('[Lobby.tsx] Module loaded');
 
@@ -30,6 +31,9 @@ export default function Lobby() {
   const [newRoomName, setNewRoomName] = useState('');
   const [newRoomSlug, setNewRoomSlug] = useState('');
   const [unreadCount, setUnreadCount] = useState(0);
+  const profileImageUrl = resolveAssetUrl(
+    profile?.avatar_headshot_url || profile?.profile_image_url || DEFAULT_PROFILE_IMAGE_URL
+  );
 
   useEffect(() => {
     fetchRooms();
@@ -93,9 +97,12 @@ export default function Lobby() {
       <div className="w-full max-w-4xl flex justify-between items-center pt-2 pb-4">
         <button onClick={() => navigate('/profile')} className="flex items-center gap-3 active:opacity-70 transition-opacity">
           <img
-            src={profile?.profile_image_url || profile?.avatar_headshot_url || '/default_avatar.png'}
+            src={profileImageUrl}
             alt="Profile"
             className="h-10 w-10 rounded-full object-cover border border-white/20"
+            onError={(event) => {
+              event.currentTarget.src = DEFAULT_PROFILE_IMAGE_URL;
+            }}
           />
           <span className="text-lg font-semibold text-white">
             {profile?.username || 'Guest'}

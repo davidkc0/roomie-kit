@@ -5,7 +5,7 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills'
 function manualChunks(id: string): string | undefined {
   if (!id.includes('/node_modules/')) return undefined
 
-  if (id.includes('/react/') || id.includes('/react-dom/') || id.includes('/react-router') || id.includes('/react-router-dom/')) {
+  if (id.includes('/react/') || id.includes('/react-dom/') || id.includes('/react-router') || id.includes('/react-router-dom/') || id.includes('/scheduler/')) {
     return 'vendor-react'
   }
 

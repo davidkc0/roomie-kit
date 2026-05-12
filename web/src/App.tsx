@@ -456,7 +456,7 @@ function AuthNavigator() {
     const handleBeforeUnload = () => {
       // Use sendBeacon for reliable delivery on page close
       navigator.sendBeacon?.(
-        `${import.meta.env.VITE_SUPABASE_URL}/rest/v1/rpc/update_presence`,
+        `${String(import.meta.env.VITE_SUPABASE_URL || '').trim()}/rest/v1/rpc/update_presence`,
         JSON.stringify({ p_status: 'offline', p_room_slug: null, p_room_type: null, p_room_owner_id: null })
       );
     };

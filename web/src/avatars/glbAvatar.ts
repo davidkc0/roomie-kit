@@ -9,7 +9,7 @@ import {
 } from '@babylonjs/core';
 import { SceneLoader } from '@babylonjs/core/Loading/sceneLoader';
 import '@babylonjs/loaders';
-import { R2_PATHS } from '../config/r2';
+import { R2_PATHS, resolveAssetUrl } from '../config/r2';
 
 export type GlbAvatar = {
   root: TransformNode;
@@ -201,13 +201,14 @@ export async function createGlbAvatar(
   scene: Scene,
   avatarUrl: string
 ): Promise<GlbAvatar> {
-  console.log('[AvatarGLB] Loading avatar from URL:', avatarUrl);
+  const resolvedAvatarUrl = resolveAssetUrl(avatarUrl, 'avatars');
+  console.log('[AvatarGLB] Loading avatar from URL:', resolvedAvatarUrl);
 
   try {
     const result = await SceneLoader.ImportMeshAsync(
       '',
       '',
-      avatarUrl,
+      resolvedAvatarUrl,
       scene
     );
 

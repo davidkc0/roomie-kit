@@ -146,7 +146,7 @@ export default function SettingsPage() {
             }
 
             const res = await fetch(
-                `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/delete-account`,
+                `${String(import.meta.env.VITE_SUPABASE_URL || '').trim()}/functions/v1/delete-account`,
                 {
                     method: 'POST',
                     headers: {

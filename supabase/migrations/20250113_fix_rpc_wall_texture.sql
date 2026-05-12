@@ -1,6 +1,8 @@
 -- Migration: Add wall_texture_url to get_room_by_slug_rpc
 -- This fixes wall textures not persisting when re-entering a room
 
+DROP FUNCTION IF EXISTS get_room_by_slug_rpc(text);
+
 CREATE OR REPLACE FUNCTION get_room_by_slug_rpc(slug_input text)
 RETURNS TABLE (
   room_id bigint,

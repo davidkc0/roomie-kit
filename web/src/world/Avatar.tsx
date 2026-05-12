@@ -19,9 +19,10 @@ import type { PlayerState } from '../multiplayer/playroom';
 import { useScene } from './scene';
 import { useVideoStore } from '../state/videoStore';
 import '../utils/helpers'; // Import to ensure hashCode is available
+import { defaultAvatarUrl } from '../config/app';
 import { R2_PATHS, R2_BASE_URL } from '../config/r2';
 import { AvatarNameplate } from './AvatarNameplate';
-import { applyAvatarTextures } from '../avatars/avatarTextures';
+import { DEFAULT_AVATAR_CONFIG, applyAvatarTextures } from '../avatars/avatarTextures';
 import { writeMyState } from '../multiplayer/playroom';
 
 type AvatarProps = {
@@ -390,7 +391,7 @@ function AvatarComponent({ playerId, player, isLocal = false, videoElement, getL
         const RETRY_DELAY_MS = 2000;
 
         // Wait for avatarUrl if not yet available (profile may still be syncing)
-        let resolvedUrl = avatarUrl;
+        let resolvedUrl = avatarUrl || defaultAvatarUrl;
         if (!resolvedUrl) {
           console.log('[Avatar] No avatarUrl yet for player:', playerId, '— polling...');
           const POLL_INTERVAL = 500;
@@ -419,10 +420,8 @@ function AvatarComponent({ playerId, player, isLocal = false, videoElement, getL
             avatar = { ...glb, kind: 'glb' };
 
             // Apply custom textures if config exists
-            if (playerStateRef.current?.avatarConfig) {
-              applyAvatarTextures(glb.root.getChildMeshes(false), playerStateRef.current.avatarConfig, scene);
-              console.log('[Avatar] Applied custom textures for player:', playerId);
-            }
+            applyAvatarTextures(glb.root.getChildMeshes(false), playerStateRef.current?.avatarConfig || DEFAULT_AVATAR_CONFIG, scene);
+            console.log('[Avatar] Applied avatar textures for player:', playerId);
 
             console.log('[Avatar] avatar model loaded successfully for player:', playerId);
             lastError = null;
@@ -608,7 +607,7 @@ function AvatarComponent({ playerId, player, isLocal = false, videoElement, getL
     const retryInterval = setInterval(async () => {
       if (cancelled) return;
 
-      const currentUrl = playerStateRef.current?.avatarUrl;
+      const currentUrl = playerStateRef.current?.avatarUrl || defaultAvatarUrl;
       if (!currentUrl) return; // Still no URL, keep waiting
 
       console.log('[Avatar] Recovery: avatarUrl found for player:', playerId, '— retrying load');
@@ -632,9 +631,7 @@ function AvatarComponent({ playerId, player, isLocal = false, videoElement, getL
           const glb = await createGlbAvatar(scene, currentUrl);
           const avatar: AvatarInstance = { ...glb, kind: 'glb' };
 
-          if (playerStateRef.current?.avatarConfig) {
-            applyAvatarTextures(glb.root.getChildMeshes(false), playerStateRef.current.avatarConfig, scene);
-          }
+          applyAvatarTextures(glb.root.getChildMeshes(false), playerStateRef.current?.avatarConfig || DEFAULT_AVATAR_CONFIG, scene);
 
           if (cancelled) {
             avatar.root.dispose();

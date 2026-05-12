@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Lock } from 'lucide-react';
-import { R2_PATHS } from '../../config/r2';
+import { resolveAssetUrl } from '../../config/r2';
 import { supabase } from '../../lib/supabase';
 import { useAuthStore } from '../../state/authStore';
 
@@ -178,9 +178,9 @@ export function ItemPalette({ onSelectItem, onSelectFloor, onSelectWall }: ItemP
     };
 
     const getThumbnailSrc = (item: CatalogItem) => {
-        if (item.thumbnail_url) return item.thumbnail_url;
-        if (selectedCategory === 'floor') return `${R2_PATHS.floor}/${item.model_url}`;
-        if (selectedCategory === 'wall') return `${R2_PATHS.wall}/${item.model_url}`;
+        if (item.thumbnail_url) return resolveAssetUrl(item.thumbnail_url, selectedCategory === 'wall' ? 'wall' : selectedCategory === 'floor' ? 'floor' : 'furniture');
+        if (selectedCategory === 'floor') return resolveAssetUrl(item.model_url, 'floor');
+        if (selectedCategory === 'wall') return resolveAssetUrl(item.model_url, 'wall');
         return null;
     };
 
@@ -292,7 +292,7 @@ export function ItemPalette({ onSelectItem, onSelectFloor, onSelectWall }: ItemP
                         {purchaseConfirm.thumbnail_url && (
                             <div className="flex justify-center mb-4">
                                 <img
-                                    src={purchaseConfirm.thumbnail_url}
+                                    src={getThumbnailSrc(purchaseConfirm) || ''}
                                     alt={purchaseConfirm.name}
                                     className="w-40 h-40 object-cover rounded-2xl border border-white/10"
                                 />

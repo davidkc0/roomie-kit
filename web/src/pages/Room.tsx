@@ -13,7 +13,8 @@ import { GLBEnvironment } from '../world/GLBEnvironment';
 import { CollisionBox } from '../world/CollisionBox';
 import { HexArenaRoom, HexPracticeRoom } from '../games/hexagone';
 import { getRoomDefinition } from '../config/rooms';
-import { R2_BASE_URL } from '../config/r2';
+import { defaultAvatarUrl } from '../config/app';
+import { R2_BASE_URL, resolveAssetUrl } from '../config/r2';
 import { Vector3, TransformNode } from '@babylonjs/core';
 import { AbstractMesh, DynamicTexture } from '@babylonjs/core';
 import { useAuthStore } from '../state/authStore';
@@ -60,6 +61,7 @@ import { useOrientationLock } from '../hooks/useOrientationLock';
 import { useCameraPrefsStore } from '../state/cameraPrefsStore';
 import { notifyRoomVisit } from '../lib/pushNotify';
 import { LoadingSpinner } from '../components/LoadingSpinner';
+import { DEFAULT_AVATAR_CONFIG } from '../avatars/avatarTextures';
 
 
 import '../utils/helpers'; // Import to ensure hashCode is available
@@ -639,7 +641,7 @@ function RoomMain({ slug }: RoomMainProps) {
       : { x: 0, y: 0, z: 0 };
     // Pull avatarUrl from auth store so Avatar.tsx can load the avatar model.
     const authProfile = useAuthStore.getState().profile;
-    const storedAvatarUrl = authProfile?.avatar_url;
+    const storedAvatarUrl = authProfile?.avatar_url || defaultAvatarUrl;
     return {
       pos: spawnPos,
       rotY: 0,
@@ -647,7 +649,8 @@ function RoomMain({ slug }: RoomMainProps) {
       head: { q: [0, 0, 0, 1] },
       blend: {},
       isLoading: true, // Hidden until avatar fully loads
-      ...(storedAvatarUrl && { avatarUrl: storedAvatarUrl }),
+      avatarUrl: resolveAssetUrl(storedAvatarUrl, 'avatars'),
+      avatarConfig: authProfile?.avatar_config || DEFAULT_AVATAR_CONFIG,
     };
   }, [customSpawnPoint]);
 
@@ -1220,7 +1223,8 @@ function RoomMain({ slug }: RoomMainProps) {
 
         const storedAvatarUrl =
           locationState?.avatarUrl ||
-          authProfile?.avatar_url;
+          authProfile?.avatar_url ||
+          defaultAvatarUrl;
 
         const storedAvatarImg = locationState?.avatarImg;
 
@@ -1228,24 +1232,13 @@ function RoomMain({ slug }: RoomMainProps) {
         const initialState = worldRef.current.players[connectedMyId] ?? createFallbackPlayer();
         console.log('[Room] Initial player state:', initialState);
 
-        // Build avatar URL with timestamp to avoid caching (preserve existing params)
-        let avatarUrl: string | undefined = undefined;
-        if (storedAvatarUrl) {
-          try {
-            const url = new URL(storedAvatarUrl);
-            url.searchParams.set('meshLod', '2');
-            avatarUrl = url.toString();
-          } catch (err) {
-            console.warn('[Room] Invalid avatar URL, using raw value', err);
-            avatarUrl = storedAvatarUrl;
-          }
-        }
+        const avatarUrl = resolveAssetUrl(storedAvatarUrl, 'avatars');
 
         localPlayerStateRef.current = {
           ...initialState,
           ...(avatarUrl && { avatarUrl }),
           ...(storedAvatarImg && { avatarImg: storedAvatarImg }),
-          ...(authProfile?.avatar_config && { avatarConfig: authProfile.avatar_config }),
+          avatarConfig: authProfile?.avatar_config || DEFAULT_AVATAR_CONFIG,
           profile: {
             name: authProfile?.username || locationState?.name || 'Guest',
             photo: authProfile?.profile_image_url || authProfile?.avatar_headshot_url || storedAvatarImg || '',
