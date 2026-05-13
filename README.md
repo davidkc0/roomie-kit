@@ -48,7 +48,6 @@ Use it as a full virtual-room app, or lift out the media layer and use Roomie as
   web/src/world/               Babylon.js room and avatar rendering
   web/public/                  Local starter assets served by Vite
   supabase/                    Migrations, config, and Edge Functions
-  docs/                        Setup, release, media, mobile, and module docs
 ```
 
 ## Quickstart
@@ -106,7 +105,7 @@ Useful local URLs:
 - Supabase Studio: `http://127.0.0.1:54323`
 - App: `http://localhost:5173`
 
-More detail: [docs/supabase.md](docs/supabase.md)
+More detail: [docs.roomiekit.io](https://docs.roomiekit.io).
 
 ## Configure Media
 
@@ -134,7 +133,7 @@ Set Edge Function secrets:
 npx supabase secrets set --env-file .env
 ```
 
-Roomie uses deterministic channel names for room voice, direct calls, personal-room video, and theater livestreaming. See [docs/media.md](docs/media.md).
+Roomie uses deterministic channel names for room voice, direct calls, personal-room video, and theater livestreaming. See [docs.roomiekit.io](https://docs.roomiekit.io).
 
 ## Modular Architecture
 
@@ -163,7 +162,7 @@ VITE_ENABLE_PUSH=false
 VITE_ENABLE_PAYMENTS=false
 ```
 
-More detail: [docs/backend-modules.md](docs/backend-modules.md)
+More detail: [docs.roomiekit.io](https://docs.roomiekit.io).
 
 ## Livestreaming Without Virtual Spaces
 
@@ -244,7 +243,7 @@ web/public/roomie-local/rooms/lounge6.glb
 web/public/roomie-local/sfx/pop.mp3
 ```
 
-Built-in theme templates are `roomie-neon`, `stream-dark`, `startup-blue`, `creator-pink`, and `minimal-dark`. See [docs/customization.md](docs/customization.md) for the full folder map, naming rules, and Git LFS notes.
+Built-in theme templates are `roomie-neon`, `stream-dark`, `startup-blue`, `creator-pink`, and `minimal-dark`. See [docs.roomiekit.io](https://docs.roomiekit.io) for the full folder map, naming rules, and Git LFS notes.
 
 ## Assets
 
@@ -254,7 +253,7 @@ Starter assets are bundled locally under `web/public` and served with:
 VITE_ASSET_BASE_URL=/
 ```
 
-For production, you can keep the Git LFS asset bundle, move assets to a CDN/R2 bucket with the same folder layout, or publish a release asset archive. See [docs/assets.md](docs/assets.md).
+For production, you can keep the Git LFS asset bundle, move assets to a CDN/R2 bucket with the same folder layout, or publish a release asset archive. See [docs.roomiekit.io](https://docs.roomiekit.io).
 
 Roomie-owned code and bundled starter assets are released under the MIT License unless otherwise noted. See [ASSET_LICENSES.md](ASSET_LICENSES.md) and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
 
@@ -274,7 +273,7 @@ npm --prefix web run cap:ios
 npm --prefix web run cap:android
 ```
 
-Before release, do a short device smoke test for camera/mic prompts, room voice, livestreaming, direct calls, and background/foreground recovery. See [docs/mobile-smoke.md](docs/mobile-smoke.md).
+Before release, do a short device smoke test for camera/mic prompts, room voice, livestreaming, direct calls, and background/foreground recovery. See [docs.roomiekit.io](https://docs.roomiekit.io).
 
 ## Useful Commands
 
@@ -289,18 +288,7 @@ npm --prefix web run cap:copy
 
 ## Docs
 
-Full documentation is available at [docs.roomiekit.io](https://docs.roomiekit.io).
-
-- [Supabase setup](docs/supabase.md)
-- [Backend modules](docs/backend-modules.md)
-- [Media and streaming](docs/media.md)
-- [Customization](docs/customization.md)
-- [Asset folders and release strategy](docs/assets.md)
-- [Managed Hosting](docs/managed-hosting/overview.md)
-- [CLI onboarding](docs/managed-hosting/onboarding.md)
-- [Mobile setup](docs/mobile.md)
-- [Mobile smoke checks](docs/mobile-smoke.md)
-- [Release checklist](docs/release.md)
+Full documentation is available at [docs.roomiekit.io](https://docs.roomiekit.io). The GitBook source lives in the separate [`roomie-kit-docs`](https://github.com/davidkc0/roomie-kit-docs) repo so this starter stays focused on the app code.
 
 External docs:
 
