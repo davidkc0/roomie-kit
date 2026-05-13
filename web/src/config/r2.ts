@@ -27,6 +27,19 @@ export const R2_PATHS = {
 type AssetCategory = keyof typeof R2_PATHS;
 
 const ASSET_PATH_MARKERS = ['/roomme-assets/', '/roomie-assets/'];
+const ASSET_ROOTS = new Set([
+    'animations',
+    'assets',
+    'avatars',
+    'emotes',
+    'furniture',
+    'rooms',
+    'floor',
+    'sfx',
+    'wall',
+    'mediapipe',
+    'roomie-local',
+]);
 const localAssets = roomieCustomization.localAssets as Record<string, string>;
 
 function normalizeRelativeAssetPath(path: string): string {
@@ -52,6 +65,17 @@ function joinAssetPath(path: string): string {
     return `${R2_BASE_URL}/${cleanPath}`;
 }
 
+function pathStartsWithAssetRoot(path: string): boolean {
+    const firstSegment = normalizeRelativeAssetPath(path).split('/')[0];
+    return ASSET_ROOTS.has(firstSegment);
+}
+
+function pathWithCategory(path: string, category?: AssetCategory): string {
+    const cleanPath = normalizeRelativeAssetPath(path);
+    if (!category || pathStartsWithAssetRoot(cleanPath)) return cleanPath;
+    return `${category}/${cleanPath}`;
+}
+
 /**
  * Normalize local filenames, starter placeholder URLs, and old private R2 S3 URLs
  * into the currently configured public asset base.
@@ -73,9 +97,8 @@ export function resolveAssetUrl(value: string | null | undefined, category?: Ass
     }
 
     if (raw.startsWith('/roomie-local/')) return raw;
-    if (raw.startsWith('/')) return joinAssetPath(raw);
-    if (category && !raw.includes('/')) return joinAssetPath(`${category}/${raw}`);
-    return joinAssetPath(raw);
+    if (raw.startsWith('/')) return joinAssetPath(pathWithCategory(raw, category));
+    return joinAssetPath(pathWithCategory(raw, category));
 }
 
 /**

@@ -128,6 +128,11 @@ export default function Login() {
         try {
             if (mode === 'signup') {
                 await signUpWithEmail(email, password);
+                const { data } = await supabase.auth.getSession();
+                if (data.session) {
+                    navigate('/');
+                    return;
+                }
                 setEmailPending(true);
                 setResendCooldown(60);
             } else {
